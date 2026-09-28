@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Download Project Alpha</title>
+    <title>Viewny — Official APK Download & App Details</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     
     <script>
@@ -17,12 +17,15 @@
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                     },
-                    colors: {
-                        brand: {
-                            bg: '#F8F9FA',      // Main background
-                            card: '#E9ECEF',    // Card/Container background
-                            border: '#DEE2E6',  // Borders/Dividers/Hover
-                            primary: '#343A40', // Primary text, icons, button bg
+                    animation: {
+                        blob: "blob 8s infinite",
+                    },
+                    keyframes: {
+                        blob: {
+                            "0%": { transform: "translate(0px, 0px) scale(1)" },
+                            "33%": { transform: "translate(30px, -40px) scale(1.08)" },
+                            "66%": { transform: "translate(-20px, 20px) scale(0.94)" },
+                            "100%": { transform: "translate(0px, 0px) scale(1)" }
                         }
                     }
                 }
@@ -32,20 +35,24 @@
     
     <style>
         body {
-            background-color: #F8F9FA;
-            color: #343A40;
+            background-color: #EDEDED;
+            color: #1e293b;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Custom spinner using border color for track and primary for indicator */
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+
+        /* Spinner for download action */
         .spinner {
-            border: 3px solid #DEE2E6;
-            border-top: 3px solid #F8F9FA; /* Contrasts against the dark button */
+            border: 3px solid rgba(255, 255, 255, 0.2);
+            border-top: 3px solid #ffffff; 
             border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            animation: spin 1s linear infinite;
+            width: 22px;
+            height: 22px;
+            animation: spin 0.8s cubic-bezier(0.6, 0.2, 0.4, 0.8) infinite;
         }
 
         @keyframes spin {
@@ -54,83 +61,199 @@
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col relative selection:bg-brand-border selection:text-brand-primary">
+<body class="min-h-screen flex flex-col relative selection:bg-indigo-500/30 selection:text-indigo-900 overflow-x-hidden">
 
-    <main class="flex-grow flex flex-col items-center justify-center px-6 py-12 w-full max-w-2xl mx-auto z-10">
+    <!-- Ambient Glowing Orbs -->
+    <div class="fixed top-[-10%] left-[-10%] w-[550px] h-[550px] bg-indigo-600/20 rounded-full mix-blend-multiply filter blur-[140px] opacity-70 animate-blob pointer-events-none"></div>
+    <div class="fixed top-[40%] right-[-12%] w-[500px] h-[500px] bg-blue-600/20 rounded-full mix-blend-multiply filter blur-[140px] opacity-60 animate-blob animation-delay-2000 pointer-events-none"></div>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-[#EDEDED]/70 border-b border-black/10 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
+            
+            <!-- Brand / Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <img src="viewny_generated_logo.png" alt="Viewny Logo" class="w-10 h-10 rounded-xl shadow-lg shadow-indigo-500/10 group-hover:scale-105 transition-transform duration-300 object-cover">
+                <div class="flex flex-col">
+                    <span class="font-extrabold text-base tracking-tight text-slate-900 group-hover:text-indigo-600 transition-colors">Viewny</span>
+                    <span class="text-[10px] text-slate-500 font-medium -mt-1 tracking-wider uppercase">Android Client</span>
+                </div>
+            </a>
+
+            <!-- Navigation Links -->
+            <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-600">
+                <a href="#overview" class="hover:text-slate-900 transition-colors">Overview</a>
+                <a href="#details" class="hover:text-slate-900 transition-colors">App Details</a>
+                <a href="#architecture" class="hover:text-slate-900 transition-colors">Architecture</a>
+                <a href="#security" class="hover:text-slate-900 transition-colors">Security</a>
+            </nav>
+
+            <!-- Nav Action Button -->
+            <div class="flex items-center gap-3">
+                <a href="#downloadBtn" class="px-4 py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-black/5 hover:bg-black/10 border border-black/10 rounded-xl backdrop-blur-md transition-all duration-200 hover:border-indigo-400/50">
+                    Get APK
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow w-full max-w-4xl mx-auto px-5 sm:px-8 py-12 z-10 flex flex-col items-center">
         
-        <div class="mb-8 p-6 bg-brand-card border border-brand-border rounded-3xl shadow-sm transition-transform duration-300 hover:scale-[1.02]">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-20 h-20 text-brand-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
-            </svg>
-        </div>
+        <!-- Hero & Download Card -->
+        <section id="overview" class="w-full flex flex-col items-center text-center pt-4 pb-12">
+            
+            <!-- App Icon -->
+            <img src="viewny_generated_logo.png" alt="Viewny App Icon" class="mb-6 w-24 h-24 sm:w-28 sm:h-28 rounded-[2rem] shadow-[0_12px_40px_rgba(0,0,0,0.15)] transition-all duration-500 hover:scale-105 hover:shadow-[0_0_50px_-10px_rgba(99,102,241,0.4)] object-cover ring-1 ring-black/5">
 
-        <div class="text-center mb-8">
-            <h1 class="text-3xl sm:text-4xl font-bold tracking-tight mb-4 text-brand-primary">Project Alpha</h1>
-            <p class="text-base sm:text-lg text-brand-primary/80 max-w-md mx-auto leading-relaxed">
-                A streamlined, ad-free utility tool designed for maximum efficiency. Clean, light, and undeniably fast.
+            <!-- Title & Tagline -->
+            <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-3 text-transparent bg-clip-text bg-gradient-to-b from-slate-900 via-slate-700 to-slate-500">
+                Viewny App
+            </h1>
+            <p class="text-base sm:text-lg text-slate-600 max-w-lg leading-relaxed font-medium mb-6">
+                Lightweight, high-performance multimedia utility built on modern Android Jetpack Compose and optimized native runtimes.
             </p>
-        </div>
 
-        <div class="flex flex-wrap items-center justify-center gap-3 mb-10 text-sm font-medium text-brand-primary">
-            <div class="flex items-center gap-2 px-4 py-2 bg-brand-card rounded-xl border border-brand-border">
-                <svg class="w-4 h-4 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                </svg>
-                v2.0.1
+            <!-- Metadata Quick Tags -->
+            <div class="flex flex-wrap items-center justify-center gap-3 mb-8 text-xs sm:text-sm font-semibold text-slate-700">
+                <div class="flex items-center gap-1.5 px-4 py-2 bg-white/50 rounded-xl border border-black/10 backdrop-blur-md">
+                    <svg class="w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                    </svg>
+                    v2.0.1 Stable
+                </div>
+                <div class="flex items-center gap-1.5 px-4 py-2 bg-white/50 rounded-xl border border-black/10 backdrop-blur-md">
+                    <svg class="w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
+                    </svg>
+                    12.4 MB
+                </div>
+                <div class="flex items-center gap-1.5 px-4 py-2 bg-white/50 rounded-xl border border-black/10 backdrop-blur-md">
+                    <svg class="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                    Verified Package
+                </div>
             </div>
-            <div class="flex items-center gap-2 px-4 py-2 bg-brand-card rounded-xl border border-brand-border">
-                <svg class="w-4 h-4 opacity-70" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
-                </svg>
-                12.4 MB
-            </div>
-        </div>
 
-        <div class="w-full flex flex-col items-center">
-            <button id="downloadBtn" class="group relative w-full sm:w-auto min-w-[260px] bg-brand-primary text-brand-bg px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-200 hover:bg-brand-primary/90 active:scale-95 flex items-center justify-center gap-3 focus:outline-none focus:ring-4 focus:ring-brand-border">
-                
+            <!-- Download Button -->
+            <button id="downloadBtn" class="group relative w-full sm:w-auto min-w-[280px] bg-gradient-to-r from-indigo-500 via-blue-500 to-indigo-500 bg-[length:200%_auto] text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 hover:bg-[position:right_center] hover:shadow-[0_0_35px_-5px_rgba(99,102,241,0.6)] hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-3 ring-1 ring-white/20">
                 <div id="btnContent" class="flex items-center gap-3">
-                    <svg id="iconDefault" class="w-6 h-6 transition-transform duration-300 group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <svg id="iconDefault" class="w-6 h-6 transition-transform duration-300 group-hover:-translate-y-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                     </svg>
                     
                     <div id="iconSpinner" class="spinner hidden"></div>
 
-                    <svg id="iconSuccess" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <svg id="iconSuccess" class="w-6 h-6 hidden text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
 
-                    <span id="btnText">Download APK</span>
+                    <span id="btnText" class="tracking-wide">Download viewny.apk</span>
                 </div>
             </button>
-            <p class="mt-4 text-sm text-brand-primary/60">Verified safe & secure installation.</p>
-        </div>
+            <p class="mt-3 text-xs text-slate-500 font-medium">MD5 & SHA-256 verified package integrity</p>
+        </section>
+
+        <!-- App Details / Package Specification Table Section -->
+        <section id="details" class="w-full pt-8 pb-12 border-t border-black/10">
+            <div class="mb-6 flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">App Details & Technical Profile</h2>
+                    <p class="text-sm text-slate-600 mt-1">Package manifest details extracted from <code class="text-indigo-600 font-mono text-xs">viewny.apk</code></p>
+                </div>
+                <span class="hidden sm:inline-flex text-xs font-semibold px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-600 border border-indigo-500/20">Release Build</span>
+            </div>
+
+            <!-- Details Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                
+                <!-- Detail Card 1: Identity -->
+                <div class="p-5 bg-white/50 border border-black/10 rounded-2xl backdrop-blur-md hover:bg-white/80 transition-colors">
+                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-1">Application Name</span>
+                    <div class="text-base font-bold text-slate-900 flex items-center gap-2">
+                        Viewny
+                        <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-black/5 text-slate-600">Single Client</span>
+                    </div>
+                    <span class="text-xs text-slate-500 mt-1 block">File: <span class="font-mono text-slate-600">viewny.apk</span></span>
+                </div>
+
+                <!-- Detail Card 2: Version & Target -->
+                <div class="p-5 bg-white/50 border border-black/10 rounded-2xl backdrop-blur-md hover:bg-white/80 transition-colors">
+                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-1">Version & Build</span>
+                    <div class="text-base font-bold text-slate-900">2.0.1 (Stable)</div>
+                    <span class="text-xs text-slate-500 mt-1 block">Target API: Android 14 (API 34)</span>
+                </div>
+
+                <!-- Detail Card 3: UI Architecture -->
+                <div class="p-5 bg-white/50 border border-black/10 rounded-2xl backdrop-blur-md hover:bg-white/80 transition-colors">
+                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-1">UI Framework</span>
+                    <div class="text-base font-bold text-slate-900 flex items-center gap-2">
+                        Jetpack Compose
+                    </div>
+                    <span class="text-xs text-slate-500 mt-1 block">Material 3 Dynamic System</span>
+                </div>
+
+                <!-- Detail Card 4: Native ABI Support -->
+                <div id="architecture" class="p-5 bg-white/50 border border-black/10 rounded-2xl backdrop-blur-md hover:bg-white/80 transition-colors">
+                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-1">Native ABI Architectures</span>
+                    <div class="text-sm font-semibold text-slate-800 mt-1 flex flex-wrap gap-1.5">
+                        <span class="px-2 py-0.5 text-xs bg-black/5 border border-black/10 rounded-md font-mono">arm64-v8a</span>
+                        <span class="px-2 py-0.5 text-xs bg-black/5 border border-black/10 rounded-md font-mono">armeabi-v7a</span>
+                        <span class="px-2 py-0.5 text-xs bg-black/5 border border-black/10 rounded-md font-mono">x86_64</span>
+                    </div>
+                    <span class="text-xs text-slate-500 mt-2 block">Optimized C++ Datastore & Path Iterator</span>
+                </div>
+
+                <!-- Detail Card 5: Core Services -->
+                <div id="security" class="p-5 bg-white/50 border border-black/10 rounded-2xl backdrop-blur-md hover:bg-white/80 transition-colors">
+                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-1">Identity & Cloud</span>
+                    <div class="text-base font-bold text-slate-900">Google Play Services</div>
+                    <span class="text-xs text-slate-500 mt-1 block">Google One Tap & Firebase Integration</span>
+                </div>
+
+                <!-- Detail Card 6: Storage Engine -->
+                <div class="p-5 bg-white/50 border border-black/10 rounded-2xl backdrop-blur-md hover:bg-white/80 transition-colors">
+                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-1">Persistence & Storage</span>
+                    <div class="text-base font-bold text-slate-900">AndroidX DataStore & Room</div>
+                    <span class="text-xs text-slate-500 mt-1 block">Transactional Local SQLite Cache</span>
+                </div>
+            </div>
+        </section>
     </main>
 
-    <footer class="w-full py-6 text-center border-t border-brand-border bg-brand-bg mt-auto">
-        <p class="text-sm text-brand-primary/50">&copy; 2026 Developer Studio. Single-purpose utility client.</p>
+    <!-- Footer -->
+    <footer class="w-full py-7 border-t border-black/10 bg-[#EDEDED]/70 backdrop-blur-lg mt-auto relative z-10">
+        <div class="max-w-6xl mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-medium">
+            <div class="flex items-center gap-2">
+                <span class="font-bold text-slate-700">Viewny</span>
+                <span>• Single-purpose utility client</span>
+            </div>
+            <p>&copy; 2026 Developer Studio. All rights reserved.</p>
+        </div>
     </footer>
 
-    <!-- Custom Toast Notification -->
-    <div id="toast" class="fixed bottom-6 right-6 sm:bottom-10 sm:right-10 w-[90%] max-w-sm sm:w-80 bg-brand-primary text-brand-bg p-5 rounded-2xl shadow-xl transform translate-y-24 opacity-0 pointer-events-none transition-all duration-500 z-50">
+    <!-- Custom Download Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 sm:bottom-10 sm:right-10 w-[90%] max-w-sm sm:w-80 bg-white/95 border border-black/10 text-slate-900 p-5 rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.2)] backdrop-blur-xl transform translate-y-24 opacity-0 pointer-events-none transition-all duration-500 z-50">
         <div class="flex items-center gap-4 mb-3">
-            <div class="bg-brand-card p-2 rounded-lg text-brand-primary">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <div class="bg-indigo-500/10 text-indigo-600 p-2.5 rounded-xl border border-indigo-500/20 shadow-inner">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                 </svg>
             </div>
             <div>
-                <h4 id="toastTitle" class="font-semibold text-sm">Downloading</h4>
-                <p class="text-brand-bg/70 text-xs mt-0.5">Project_Alpha_v2.0.1.apk</p>
+                <h4 id="toastTitle" class="font-bold text-sm tracking-wide text-slate-900">Downloading</h4>
+                <p class="text-slate-500 text-xs mt-0.5 font-medium">viewny.apk (12.4 MB)</p>
             </div>
         </div>
         
         <!-- Progress bar container -->
-        <div class="w-full h-2 bg-brand-bg/20 rounded-full overflow-hidden mt-4">
-            <div id="toastProgress" class="h-full bg-brand-bg w-0 transition-all duration-[2500ms] ease-out rounded-full"></div>
+        <div class="w-full h-1.5 bg-black/10 rounded-full overflow-hidden mt-4 border border-black/5">
+            <div id="toastProgress" class="h-full bg-gradient-to-r from-indigo-500 to-blue-400 w-0 transition-all duration-[2500ms] ease-out rounded-full shadow-[0_0_10px_rgba(99,102,241,0.3)]"></div>
         </div>
     </div>
 
+    <!-- Script Handling simulated & real download trigger -->
     <script>
         const btn = document.getElementById('downloadBtn');
         const btnText = document.getElementById('btnText');
@@ -150,15 +273,17 @@
             isDownloading = true;
 
             // 1. Update Button State
-            btnText.textContent = "Processing...";
+            btnText.textContent = "Processing package...";
             iconDefault.classList.add('hidden');
             iconSpinner.classList.remove('hidden');
-            btn.classList.add('opacity-90', 'cursor-not-allowed', 'scale-95');
-            btn.classList.remove('hover:bg-brand-primary/90', 'active:scale-95');
+            
+            btn.classList.add('opacity-80', 'cursor-not-allowed', 'scale-95');
+            btn.classList.remove('hover:bg-[position:right_center]', 'hover:shadow-[0_0_35px_-5px_rgba(99,102,241,0.6)]', 'hover:-translate-y-0.5', 'active:scale-95');
 
             // 2. Show Toast Notification
             toast.classList.remove('translate-y-24', 'opacity-0');
             toastTitle.textContent = "Downloading...";
+            toastTitle.classList.replace('text-emerald-600', 'text-slate-900');
             
             // Start progress bar animation
             setTimeout(() => {
@@ -169,6 +294,7 @@
             setTimeout(() => {
                 // Update Toast
                 toastTitle.textContent = "Download Complete";
+                toastTitle.classList.replace('text-slate-900', 'text-emerald-600');
                 
                 // Update Button
                 btnText.textContent = "Downloaded";
@@ -184,7 +310,7 @@
                     resetButton();
                 }, 3500);
 
-            }, 2600); // Wait for progress bar (2.5s) + small buffer
+            }, 2600);
         });
 
         function hideToast() {
@@ -195,21 +321,14 @@
                 setTimeout(() => {
                     toastProgress.style.transition = 'all 2500ms ease-out';
                 }, 50);
-            }, 500); // Wait for fade out animation
+            }, 500);
         }
 
         function triggerRealDownload() {
-            // Create a hidden link element
             const a = document.createElement('a');
             a.style.display = 'none';
-            
-            // Point the link to your actual APK file in the same directory
-            a.href = 'app-debug.apk'; 
-            
-            // Set the default name for the downloaded file
+            a.href = 'viewny.apk'; 
             a.download = 'viewny.apk'; 
-            
-            // Append to body, trigger click, and clean up
             document.body.appendChild(a);
             a.click();
             document.body.removeChild(a);
@@ -218,12 +337,12 @@
         function resetButton() {
             isDownloading = false;
             
-            btnText.textContent = "Download APK";
+            btnText.textContent = "Download viewny.apk";
             iconSuccess.classList.add('hidden');
             iconDefault.classList.remove('hidden');
             
-            btn.classList.remove('opacity-90', 'cursor-not-allowed', 'scale-95');
-            btn.classList.add('hover:bg-brand-primary/90', 'active:scale-95');
+            btn.classList.remove('opacity-80', 'cursor-not-allowed', 'scale-95');
+            btn.classList.add('hover:bg-[position:right_center]', 'hover:shadow-[0_0_35px_-5px_rgba(99,102,241,0.6)]', 'hover:-translate-y-0.5', 'active:scale-95');
         }
     </script>
 </body>
