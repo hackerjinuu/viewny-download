@@ -1,349 +1,162 @@
-<!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Viewny — Official APK Download & App Details</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    animation: {
-                        blob: "blob 8s infinite",
-                    },
-                    keyframes: {
-                        blob: {
-                            "0%": { transform: "translate(0px, 0px) scale(1)" },
-                            "33%": { transform: "translate(30px, -40px) scale(1.08)" },
-                            "66%": { transform: "translate(-20px, 20px) scale(0.94)" },
-                            "100%": { transform: "translate(0px, 0px) scale(1)" }
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <style>
-        body {
-            background-color: #EDEDED;
-            color: #1e293b;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        .animation-delay-2000 {
-            animation-delay: 2s;
-        }
-
-        /* Spinner for download action */
-        .spinner {
-            border: 3px solid rgba(255, 255, 255, 0.2);
-            border-top: 3px solid #ffffff; 
-            border-radius: 50%;
-            width: 22px;
-            height: 22px;
-            animation: spin 0.8s cubic-bezier(0.6, 0.2, 0.4, 0.8) infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Viewny for Android. Review app information, compatibility, installation guidance and the current APK package.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Viewny — Android app">
+  <meta property="og:description" content="App information, technical details and the Viewny Android APK.">
+  <meta property="og:image" content="assets/viewny-logo.png">
+  <title>Viewny — Android App & APK Download</title>
+  <link rel="icon" type="image/png" href="assets/viewny-logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script defer src="site.js"></script>
 </head>
-<body class="min-h-screen flex flex-col relative selection:bg-indigo-500/30 selection:text-indigo-900 overflow-x-hidden">
-
-    <!-- Ambient Glowing Orbs -->
-    <div class="fixed top-[-10%] left-[-10%] w-[550px] h-[550px] bg-indigo-600/20 rounded-full mix-blend-multiply filter blur-[140px] opacity-70 animate-blob pointer-events-none"></div>
-    <div class="fixed top-[40%] right-[-12%] w-[500px] h-[500px] bg-blue-600/20 rounded-full mix-blend-multiply filter blur-[140px] opacity-60 animate-blob animation-delay-2000 pointer-events-none"></div>
-
-    <!-- Navigation Bar -->
-    <header class="sticky top-0 z-40 w-full backdrop-blur-xl bg-[#EDEDED]/70 border-b border-black/10 transition-all duration-300">
-        <div class="max-w-6xl mx-auto px-5 sm:px-8 h-16 flex items-center justify-between">
-            
-            <!-- Brand / Logo -->
-            <a href="#" class="flex items-center gap-3 group">
-                <img src="viewny_generated_logo.png" alt="Viewny Logo" class="w-10 h-10 rounded-xl shadow-lg shadow-indigo-500/10 group-hover:scale-105 transition-transform duration-300 object-cover">
-                <div class="flex flex-col">
-                    <span class="font-extrabold text-base tracking-tight text-slate-900 group-hover:text-indigo-600 transition-colors">Viewny</span>
-                    <span class="text-[10px] text-slate-500 font-medium -mt-1 tracking-wider uppercase">Android Client</span>
-                </div>
-            </a>
-
-            <!-- Navigation Links -->
-            <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-600">
-                <a href="#overview" class="hover:text-slate-900 transition-colors">Overview</a>
-                <a href="#details" class="hover:text-slate-900 transition-colors">App Details</a>
-                <a href="#architecture" class="hover:text-slate-900 transition-colors">Architecture</a>
-                <a href="#security" class="hover:text-slate-900 transition-colors">Security</a>
-            </nav>
-
-            <!-- Nav Action Button -->
-            <div class="flex items-center gap-3">
-                <a href="#downloadBtn" class="px-4 py-2 text-xs sm:text-sm font-semibold text-slate-700 bg-black/5 hover:bg-black/10 border border-black/10 rounded-xl backdrop-blur-md transition-all duration-200 hover:border-indigo-400/50">
-                    Get APK
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Content Area -->
-    <main class="flex-grow w-full max-w-4xl mx-auto px-5 sm:px-8 py-12 z-10 flex flex-col items-center">
-        
-        <!-- Hero & Download Card -->
-        <section id="overview" class="w-full flex flex-col items-center text-center pt-4 pb-12">
-            
-            <!-- App Icon -->
-            <img src="viewny_generated_logo.png" alt="Viewny App Icon" class="mb-6 w-24 h-24 sm:w-28 sm:h-28 rounded-[2rem] shadow-[0_12px_40px_rgba(0,0,0,0.15)] transition-all duration-500 hover:scale-105 hover:shadow-[0_0_50px_-10px_rgba(99,102,241,0.4)] object-cover ring-1 ring-black/5">
-
-            <!-- Title & Tagline -->
-            <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight mb-3 text-transparent bg-clip-text bg-gradient-to-b from-slate-900 via-slate-700 to-slate-500">
-                Viewny App
-            </h1>
-            <p class="text-base sm:text-lg text-slate-600 max-w-lg leading-relaxed font-medium mb-6">
-                Lightweight, high-performance multimedia utility built on modern Android Jetpack Compose and optimized native runtimes.
-            </p>
-
-            <!-- Metadata Quick Tags -->
-            <div class="flex flex-wrap items-center justify-center gap-3 mb-8 text-xs sm:text-sm font-semibold text-slate-700">
-                <div class="flex items-center gap-1.5 px-4 py-2 bg-white/50 rounded-xl border border-black/10 backdrop-blur-md">
-                    <svg class="w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                    </svg>
-                    v2.0.1 Stable
-                </div>
-                <div class="flex items-center gap-1.5 px-4 py-2 bg-white/50 rounded-xl border border-black/10 backdrop-blur-md">
-                    <svg class="w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" />
-                    </svg>
-                    12.4 MB
-                </div>
-                <div class="flex items-center gap-1.5 px-4 py-2 bg-white/50 rounded-xl border border-black/10 backdrop-blur-md">
-                    <svg class="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                    </svg>
-                    Verified Package
-                </div>
-            </div>
-
-            <!-- Download Button -->
-            <button id="downloadBtn" class="group relative w-full sm:w-auto min-w-[280px] bg-gradient-to-r from-indigo-500 via-blue-500 to-indigo-500 bg-[length:200%_auto] text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 hover:bg-[position:right_center] hover:shadow-[0_0_35px_-5px_rgba(99,102,241,0.6)] hover:-translate-y-0.5 active:scale-95 flex items-center justify-center gap-3 ring-1 ring-white/20">
-                <div id="btnContent" class="flex items-center gap-3">
-                    <svg id="iconDefault" class="w-6 h-6 transition-transform duration-300 group-hover:-translate-y-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                    </svg>
-                    
-                    <div id="iconSpinner" class="spinner hidden"></div>
-
-                    <svg id="iconSuccess" class="w-6 h-6 hidden text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-
-                    <span id="btnText" class="tracking-wide">Download viewny.apk</span>
-                </div>
-            </button>
-            <p class="mt-3 text-xs text-slate-500 font-medium">MD5 & SHA-256 verified package integrity</p>
-        </section>
-
-        <!-- App Details / Package Specification Table Section -->
-        <section id="details" class="w-full pt-8 pb-12 border-t border-black/10">
-            <div class="mb-6 flex items-center justify-between">
-                <div>
-                    <h2 class="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">App Details & Technical Profile</h2>
-                    <p class="text-sm text-slate-600 mt-1">Package manifest details extracted from <code class="text-indigo-600 font-mono text-xs">viewny.apk</code></p>
-                </div>
-                <span class="hidden sm:inline-flex text-xs font-semibold px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-600 border border-indigo-500/20">Release Build</span>
-            </div>
-
-            <!-- Details Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                
-                <!-- Detail Card 1: Identity -->
-                <div class="p-5 bg-white/50 border border-black/10 rounded-2xl backdrop-blur-md hover:bg-white/80 transition-colors">
-                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-1">Application Name</span>
-                    <div class="text-base font-bold text-slate-900 flex items-center gap-2">
-                        Viewny
-                        <span class="text-[10px] font-semibold px-2 py-0.5 rounded bg-black/5 text-slate-600">Single Client</span>
-                    </div>
-                    <span class="text-xs text-slate-500 mt-1 block">File: <span class="font-mono text-slate-600">viewny.apk</span></span>
-                </div>
-
-                <!-- Detail Card 2: Version & Target -->
-                <div class="p-5 bg-white/50 border border-black/10 rounded-2xl backdrop-blur-md hover:bg-white/80 transition-colors">
-                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-1">Version & Build</span>
-                    <div class="text-base font-bold text-slate-900">2.0.1 (Stable)</div>
-                    <span class="text-xs text-slate-500 mt-1 block">Target API: Android 14 (API 34)</span>
-                </div>
-
-                <!-- Detail Card 3: UI Architecture -->
-                <div class="p-5 bg-white/50 border border-black/10 rounded-2xl backdrop-blur-md hover:bg-white/80 transition-colors">
-                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-1">UI Framework</span>
-                    <div class="text-base font-bold text-slate-900 flex items-center gap-2">
-                        Jetpack Compose
-                    </div>
-                    <span class="text-xs text-slate-500 mt-1 block">Material 3 Dynamic System</span>
-                </div>
-
-                <!-- Detail Card 4: Native ABI Support -->
-                <div id="architecture" class="p-5 bg-white/50 border border-black/10 rounded-2xl backdrop-blur-md hover:bg-white/80 transition-colors">
-                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-1">Native ABI Architectures</span>
-                    <div class="text-sm font-semibold text-slate-800 mt-1 flex flex-wrap gap-1.5">
-                        <span class="px-2 py-0.5 text-xs bg-black/5 border border-black/10 rounded-md font-mono">arm64-v8a</span>
-                        <span class="px-2 py-0.5 text-xs bg-black/5 border border-black/10 rounded-md font-mono">armeabi-v7a</span>
-                        <span class="px-2 py-0.5 text-xs bg-black/5 border border-black/10 rounded-md font-mono">x86_64</span>
-                    </div>
-                    <span class="text-xs text-slate-500 mt-2 block">Optimized C++ Datastore & Path Iterator</span>
-                </div>
-
-                <!-- Detail Card 5: Core Services -->
-                <div id="security" class="p-5 bg-white/50 border border-black/10 rounded-2xl backdrop-blur-md hover:bg-white/80 transition-colors">
-                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-1">Identity & Cloud</span>
-                    <div class="text-base font-bold text-slate-900">Google Play Services</div>
-                    <span class="text-xs text-slate-500 mt-1 block">Google One Tap & Firebase Integration</span>
-                </div>
-
-                <!-- Detail Card 6: Storage Engine -->
-                <div class="p-5 bg-white/50 border border-black/10 rounded-2xl backdrop-blur-md hover:bg-white/80 transition-colors">
-                    <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider block mb-1">Persistence & Storage</span>
-                    <div class="text-base font-bold text-slate-900">AndroidX DataStore & Room</div>
-                    <span class="text-xs text-slate-500 mt-1 block">Transactional Local SQLite Cache</span>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="w-full py-7 border-t border-black/10 bg-[#EDEDED]/70 backdrop-blur-lg mt-auto relative z-10">
-        <div class="max-w-6xl mx-auto px-5 sm:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 font-medium">
-            <div class="flex items-center gap-2">
-                <span class="font-bold text-slate-700">Viewny</span>
-                <span>• Single-purpose utility client</span>
-            </div>
-            <p>&copy; 2026 Developer Studio. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Custom Download Toast Notification -->
-    <div id="toast" class="fixed bottom-6 right-6 sm:bottom-10 sm:right-10 w-[90%] max-w-sm sm:w-80 bg-white/95 border border-black/10 text-slate-900 p-5 rounded-2xl shadow-[0_10px_40px_-10px_rgba(0,0,0,0.2)] backdrop-blur-xl transform translate-y-24 opacity-0 pointer-events-none transition-all duration-500 z-50">
-        <div class="flex items-center gap-4 mb-3">
-            <div class="bg-indigo-500/10 text-indigo-600 p-2.5 rounded-xl border border-indigo-500/20 shadow-inner">
-                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                </svg>
-            </div>
-            <div>
-                <h4 id="toastTitle" class="font-bold text-sm tracking-wide text-slate-900">Downloading</h4>
-                <p class="text-slate-500 text-xs mt-0.5 font-medium">viewny.apk (12.4 MB)</p>
-            </div>
-        </div>
-        
-        <!-- Progress bar container -->
-        <div class="w-full h-1.5 bg-black/10 rounded-full overflow-hidden mt-4 border border-black/5">
-            <div id="toastProgress" class="h-full bg-gradient-to-r from-indigo-500 to-blue-400 w-0 transition-all duration-[2500ms] ease-out rounded-full shadow-[0_0_10px_rgba(99,102,241,0.3)]"></div>
-        </div>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="container navbar">
+    <a class="brand" href="index.html" aria-label="Viewny home">
+      <img src="assets/viewny-logo.png" alt="Viewny logo">
+      <span class="brand-copy"><span class="brand-name">Viewny</span><span class="brand-caption">Android application</span></span>
+    </a>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="#about">About</a><a href="#install">How to install</a><a href="#details">App details</a><a href="#integrity">File integrity</a><a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn btn-primary" href="downloads/viewny.apk" download="viewny.apk">Download APK <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 20h14" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" data-menu-toggle><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/></svg></button>
     </div>
+  </div>
+  <nav class="container mobile-drawer" data-mobile-drawer aria-label="Mobile navigation">
+    <a href="#about">About Viewny</a><a href="#install">How to install</a><a href="#details">App details</a><a href="#integrity">File integrity</a><a href="#faq">FAQ</a>
+    <a href="privacy.html">Privacy policy</a><a href="terms.html">Terms &amp; conditions</a>
+  </nav>
+</header>
+<main id="main">
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Viewny for Android</span>
+        <h1><span class="gradient-text">Everything about</span><br>Viewny. In one place.</h1>
+        <p class="hero-copy">Review the Viewny Android package before you install it. Get the current APK, check compatibility and file fingerprints, and follow a straightforward installation guide.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="downloads/viewny.apk" download="viewny.apk">Download Viewny APK <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 20h14" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a class="btn btn-quiet" href="#details">Explore app details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-6-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+        <div class="hero-meta"><span><i class="dot"></i> Android APK</span><span>Version 1.2.0</span><span>23.4 MB download</span></div>
+      </div>
+      <div class="hero-visual" aria-label="Viewny app branding and package summary">
+        <div class="visual-glow"></div>
+        <div class="float-chip chip-one"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="2.5" width="14" height="19" rx="2.5"/><path d="M10 18h4" stroke-linecap="round"/></svg> Android app</div>
+        <div class="app-card">
+          <div class="app-card-top"><span>Application profile</span><span>APK · 01</span></div>
+          <div class="app-card-brand"><img src="assets/viewny-logo.png" alt="Viewny app icon"></div>
+          <div class="app-card-title">Viewny</div>
+          <div class="app-card-sub">Android application</div>
+          <div class="app-card-bottom">
+            <div class="mini-stat"><strong>1.2.0</strong><span>Version</span></div>
+            <div class="mini-stat"><strong>23.4 MB</strong><span>File size</span></div>
+            <div class="mini-stat"><strong>API 24+</strong><span>Minimum</span></div>
+          </div>
+        </div>
+        <div class="float-chip chip-two"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 4.5 6v5.2c0 4.8 3.2 8.2 7.5 9.8 4.3-1.6 7.5-5 7.5-9.8V6L12 3Z"/><path d="m8.5 12 2.2 2.2 4.8-4.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Package details available</div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Script Handling simulated & real download trigger -->
-    <script>
-        const btn = document.getElementById('downloadBtn');
-        const btnText = document.getElementById('btnText');
-        const iconDefault = document.getElementById('iconDefault');
-        const iconSpinner = document.getElementById('iconSpinner');
-        const iconSuccess = document.getElementById('iconSuccess');
-        
-        const toast = document.getElementById('toast');
-        const toastTitle = document.getElementById('toastTitle');
-        const toastProgress = document.getElementById('toastProgress');
-        
-        let isDownloading = false;
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-head"><span class="eyebrow">Made clear</span><h2>Know what you’re installing.</h2><p>We keep the essentials visible so you can review the package before downloading it. No inflated ratings, made-up feature lists or vague security badges.</p></div>
+      <div class="cards">
+        <article class="card"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 20h14" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Direct APK access</h3><p>Download the APK file included with this website. Your browser handles the file download directly.</p></article>
+        <article class="card"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5" stroke-linecap="round"/></svg></div><h3>Readable app details</h3><p>Check the package name, version, Android API levels, supported CPU architectures and declared permissions.</p></article>
+        <article class="card"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 4.5 6v5.2c0 4.8 3.2 8.2 7.5 9.8 4.3-1.6 7.5-5 7.5-9.8V6L12 3Z"/><path d="m8.5 12 2.2 2.2 4.8-4.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>File fingerprint</h3><p>Use the published SHA-256 checksum to confirm that a file matches this exact package. A checksum is not a malware or safety certification.</p></article>
+      </div>
+    </div>
+  </section>
 
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            if (isDownloading) return;
-            isDownloading = true;
+  <section class="section" id="install">
+    <div class="container split">
+      <div class="section-head"><span class="eyebrow">Quick guide</span><h2>Install in a few steps.</h2><p>Android installation steps can vary slightly by device manufacturer and Android version.</p></div>
+      <div>
+        <div class="step-list">
+          <article class="step"><div class="step-num">01</div><div><h3>Download the APK</h3><p>Tap the download button and save <strong>viewny.apk</strong> to your Android device.</p></div></article>
+          <article class="step"><div class="step-num">02</div><div><h3>Review the source and file</h3><p>Check the version and compare the SHA-256 fingerprint when you have a trusted reference copy.</p></div></article>
+          <article class="step"><div class="step-num">03</div><div><h3>Allow installation when prompted</h3><p>Android may ask you to allow your browser or file manager to install apps from that source. Only continue if you trust the APK.</p></div></article>
+          <article class="step"><div class="step-num">04</div><div><h3>Open Viewny</h3><p>When installation finishes, open the app from your device’s app screen.</p></div></article>
+        </div>
+        <div class="note">Android may show additional warnings for apps installed outside Google Play. Review the source, permissions and publisher before proceeding.</div>
+      </div>
+    </div>
+  </section>
 
-            // 1. Update Button State
-            btnText.textContent = "Processing package...";
-            iconDefault.classList.add('hidden');
-            iconSpinner.classList.remove('hidden');
-            
-            btn.classList.add('opacity-80', 'cursor-not-allowed', 'scale-95');
-            btn.classList.remove('hover:bg-[position:right_center]', 'hover:shadow-[0_0_35px_-5px_rgba(99,102,241,0.6)]', 'hover:-translate-y-0.5', 'active:scale-95');
+  <section class="section" id="details">
+    <div class="container">
+      <div class="section-head"><span class="eyebrow">Package profile</span><h2>Technical details.</h2><p>The values below were read from the APK supplied for this website. File size and hashes are calculated from that same file.</p></div>
+      <div class="spec-grid">
+        <div class="spec"><span class="spec-label">Application name</span><span class="spec-value">Viewny</span><span class="spec-sub">Website branding</span></div>
+        <div class="spec"><span class="spec-label">Package identifier</span><span class="spec-value">com.aistudio.viewstracker.kpmqvz</span></div>
+        <div class="spec"><span class="spec-label">Version</span><span class="spec-value">1.2.0</span><span class="spec-sub">Version code 3</span></div>
+        <div class="spec"><span class="spec-label">APK file size</span><span class="spec-value">23,411,606 bytes</span><span class="spec-sub">23.41 MB · 22.32 MiB</span></div>
+        <div class="spec"><span class="spec-label">Minimum Android</span><span class="spec-value">Android 7.0 (API 24)</span></div>
+        <div class="spec"><span class="spec-label">Target Android API</span><span class="spec-value">API 36</span></div>
+      </div>
+      <div style="height:14px"></div>
+      <div class="spec" style="margin-bottom:12px"><span class="spec-label">Included CPU architectures</span><div class="code-list"><span class="code-pill">arm64-v8a</span><span class="code-pill">armeabi-v7a</span><span class="code-pill">x86</span><span class="code-pill">x86_64</span></div></div>
+      <div class="spec"><span class="spec-label">Permissions declared in the manifest</span><div class="code-list"><span class="code-pill">INTERNET</span><span class="code-pill">POST_NOTIFICATIONS</span><span class="code-pill">ACCESS_NETWORK_STATE</span><span class="code-pill">READ_GSERVICES</span></div><span class="spec-sub">The manifest lists permissions; it does not by itself describe every data flow or explain how each permission is used.</span></div>
+    </div>
+  </section>
 
-            // 2. Show Toast Notification
-            toast.classList.remove('translate-y-24', 'opacity-0');
-            toastTitle.textContent = "Downloading...";
-            toastTitle.classList.replace('text-emerald-600', 'text-slate-900');
-            
-            // Start progress bar animation
-            setTimeout(() => {
-                toastProgress.style.width = '100%';
-            }, 100);
+  <section class="section" id="integrity">
+    <div class="container">
+      <div class="section-head"><span class="eyebrow">File transparency</span><h2>Check the file fingerprint.</h2><p>These hashes identify the exact APK currently included in this site bundle. Compare them with a checksum obtained through a separate trusted channel.</p></div>
+      <div class="integrity">
+        <div class="integrity-row"><div><h3>viewny.apk</h3><p>23,411,606 bytes · Version 1.2.0 · version code 3</p></div><span class="code-pill">SHA-256 available</span></div>
+        <div class="hash-row"><div class="hash-label">SHA-256</div><div class="hash-value"><code>91d0aeb34abc05855b1531756938026cde6d12cb456663411d1ceb86dccbbebe</code><button class="copy-btn" type="button" data-copy="91d0aeb34abc05855b1531756938026cde6d12cb456663411d1ceb86dccbbebe">Copy</button></div></div>
+        <div class="hash-row"><div class="hash-label">MD5 · legacy fingerprint</div><div class="hash-value"><code>ee75ac5b661bc38e4b73096081786395</code><button class="copy-btn" type="button" data-copy="ee75ac5b661bc38e4b73096081786395">Copy</button></div></div>
+        <div class="note" style="margin-bottom:0">A matching hash confirms that the downloaded bytes match this published file. It does not prove that the app is harmless, trustworthy or free of vulnerabilities. The APK signing certificate has not been independently reviewed as part of this website build.</div>
+      </div>
+      <div class="caution">
+        <h3><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4m0 4h.01M10.3 3.9 2.6 17.2A2 2 0 0 0 4.3 20h15.4a2 2 0 0 0 1.7-2.8L13.7 3.9a2 2 0 0 0-3.4 0Z" stroke-linecap="round" stroke-linejoin="round"/></svg> Release-readiness note</h3>
+        <p>The supplied APK manifest has <strong>android:debuggable=true</strong> and <strong>android:usesCleartextTraffic=true</strong>. Those settings are commonly associated with development/testing builds. Before distributing this package publicly, the developer should review the network configuration and produce a properly configured production release (normally with debugging disabled and cleartext traffic disabled unless specifically required). This page does not certify the APK as safe.</p>
+      </div>
+    </div>
+  </section>
 
-            // 3. Simulate Download Completion
-            setTimeout(() => {
-                // Update Toast
-                toastTitle.textContent = "Download Complete";
-                toastTitle.classList.replace('text-slate-900', 'text-emerald-600');
-                
-                // Update Button
-                btnText.textContent = "Downloaded";
-                iconSpinner.classList.add('hidden');
-                iconSuccess.classList.remove('hidden');
-                
-                // Trigger real browser download action
-                triggerRealDownload();
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-head"><span class="eyebrow">Helpful answers</span><h2>Frequently asked questions.</h2><p>Quick guidance for downloading and installing an Android APK.</p></div>
+      <div class="faq-list">
+        <details class="faq"><summary>What is an APK file?</summary><p>APK is the Android application package format used to distribute and install Android apps outside of an app store.</p></details>
+        <details class="faq"><summary>Which Android versions are supported by this package?</summary><p>The supplied manifest declares minimum SDK API 24 (Android 7.0). Actual behavior can still depend on device hardware, Android services and app functionality.</p></details>
+        <details class="faq"><summary>Why does Android ask me to allow installation?</summary><p>Android restricts app installations from unknown sources by default. To install an APK, you may need to allow the specific browser or file manager to install apps. Only enable this for a source you trust.</p></details>
+        <details class="faq"><summary>Does the SHA-256 checksum mean the APK is safe?</summary><p>No. A checksum only helps confirm that two files are byte-for-byte identical. It is not a security scan, code audit or proof of publisher identity.</p></details>
+        <details class="faq"><summary>Why might installation fail?</summary><p>Possible causes include an unsupported Android version, insufficient storage, a damaged download, a conflicting app signature or a package incompatible with your device. Check the exact Android message before trying again.</p></details>
+        <details class="faq"><summary>How do I update Viewny?</summary><p>Download a newer package from the publisher when one is made available. Android generally requires an update to use the same application ID and a compatible signing key as the installed app.</p></details>
+      </div>
+    </div>
+  </section>
 
-                // 4. Hide Toast & Reset UI after a delay
-                setTimeout(() => {
-                    hideToast();
-                    resetButton();
-                }, 3500);
-
-            }, 2600);
-        });
-
-        function hideToast() {
-            toast.classList.add('translate-y-24', 'opacity-0');
-            setTimeout(() => {
-                toastProgress.style.transition = 'none';
-                toastProgress.style.width = '0';
-                setTimeout(() => {
-                    toastProgress.style.transition = 'all 2500ms ease-out';
-                }, 50);
-            }, 500);
-        }
-
-        function triggerRealDownload() {
-            const a = document.createElement('a');
-            a.style.display = 'none';
-            a.href = 'viewny.apk'; 
-            a.download = 'viewny.apk'; 
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        }
-
-        function resetButton() {
-            isDownloading = false;
-            
-            btnText.textContent = "Download viewny.apk";
-            iconSuccess.classList.add('hidden');
-            iconDefault.classList.remove('hidden');
-            
-            btn.classList.remove('opacity-80', 'cursor-not-allowed', 'scale-95');
-            btn.classList.add('hover:bg-[position:right_center]', 'hover:shadow-[0_0_35px_-5px_rgba(99,102,241,0.6)]', 'hover:-translate-y-0.5', 'active:scale-95');
-        }
-    </script>
+  <section class="section">
+    <div class="container">
+      <div class="cta-panel"><div><h2>Ready to get Viewny?</h2><p>Review the app information above, then download the APK included with this website.</p></div><a class="btn btn-primary" href="downloads/viewny.apk" download="viewny.apk">Download APK <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 20h14" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-main">
+      <div class="footer-brand"><a class="brand" href="index.html"><img src="assets/viewny-logo.png" alt=""><span class="brand-copy"><span class="brand-name">Viewny</span><span class="brand-caption">Android application</span></span></a><p>App information and Android package details. Review the package and its permissions before installing.</p></div>
+      <nav class="footer-links" aria-label="Footer navigation"><a href="#about">About</a><a href="#details">App details</a><a href="#integrity">File integrity</a><a href="#faq">FAQ</a><a href="privacy.html">Privacy policy</a><a href="terms.html">Terms &amp; conditions</a></nav>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Viewny. All rights reserved.</span><span>Package details reflect the APK supplied with this website.</span></div>
+  </div>
+</footer>
 </body>
 </html>
