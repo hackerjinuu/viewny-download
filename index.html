@@ -1,162 +1,1096 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#ffffff">
-  <meta name="description" content="Viewny for Android. Review app information, compatibility, installation guidance and the current APK package.">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="Viewny — Android app">
-  <meta property="og:description" content="App information, technical details and the Viewny Android APK.">
-  <meta property="og:image" content="assets/viewny-logo.png">
-  <title>Viewny — Android App & APK Download</title>
-  <link rel="icon" type="image/png" href="assets/viewny-logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-  <script defer src="site.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Viewny — Android App & APK Download</title>
+<meta name="description" content="Log your views, hit your goals and get paid — all in one place. Download the Viewny Android app.">
+<meta name="theme-color" content="#050505">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Viewny — Android app">
+<meta property="og:description" content="Download the Viewny Android APK and review its package details.">
+<meta property="og:image" content="assets/viewny-logo.png">
+<noscript><style>.rv{opacity:1!important;transform:none!important}.swoosh path{stroke-dashoffset:0}
+</style></noscript>
+<link rel="icon" type="image/png" href="assets/viewny-logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#050505; --panel:#0b0b0c; --ink:#f2f2f2; --muted:#8d8d92; --dim:#5b5b60;
+  --line:rgba(255,255,255,.09); --glass:rgba(255,255,255,.045); --glass2:rgba(255,255,255,.08);
+  --display:'Orbitron','Eurostile','Segoe UI',system-ui,sans-serif;
+  --body:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --mx:50%; --my:30%;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--bg)}
+body{
+  font-family:var(--body);color:var(--ink);background:
+    radial-gradient(1200px 700px at 50% -10%,#222 0%,transparent 60%),
+    linear-gradient(180deg,#0a0a0a,#000 40%,#080808);
+  min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0);
+}
+body::before{ /* cursor spotlight */
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(420px 420px at var(--mx) var(--my),rgba(255,255,255,.07),transparent 70%);
+}
+a{color:inherit;text-decoration:none}
+.wrap{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 20px}
+
+/* ---------- top bar ---------- */
+.bar{display:flex;align-items:center;gap:22px;padding:26px 0;opacity:0;animation:fade .9s .1s forwards}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:500;letter-spacing:.08em;font-size:18px;color:#cfcfd2}
+.brand svg{width:30px;height:30px}
+.bar .rule{flex:1;height:1px;background:linear-gradient(90deg,rgba(255,255,255,.35),rgba(255,255,255,.05))}
+.bar .tag{font-size:15px;color:#cfcfd2;letter-spacing:.02em;white-space:nowrap}
+
+/* ---------- slide-style panels ---------- */
+.panel{
+  position:relative;overflow:hidden;border-radius:6px;margin-bottom:28px;isolation:isolate;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.06),transparent 35%),
+    linear-gradient(180deg,#141414,#090909 70%);
+  border:1px solid var(--line);
+  box-shadow:0 40px 80px -40px #000, inset 0 1px 0 rgba(255,255,255,.05);
+}
+.panel::before{ /* drifting grid */
+  content:"";position:absolute;inset:0;z-index:-1;opacity:.5;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:84px 84px;
+  mask-image:radial-gradient(ellipse at 60% 30%,#000 0%,transparent 75%);
+  -webkit-mask-image:radial-gradient(ellipse at 60% 30%,#000 0%,transparent 75%);
+  animation:grid 22s linear infinite;
+}
+@keyframes grid{to{background-position:84px 84px,84px 84px}}
+.swoosh{position:absolute;z-index:-1;pointer-events:none;opacity:.55}
+.swoosh path{fill:none;stroke:rgba(255,255,255,.28);stroke-width:.6;stroke-dasharray:900;stroke-dashoffset:900;animation:draw 3.2s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+
+.display{font-family:var(--display);font-weight:400;letter-spacing:.01em;line-height:1.12}
+
+/* ---------- hero ---------- */
+.hero{min-height:560px;padding:44px}
+#orb{position:absolute;right:-40px;top:-50px;width:62%;height:100%;z-index:-1;pointer-events:none;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 22%,#000 80%,transparent),linear-gradient(180deg,transparent,#000 16%,#000 84%,transparent);
+  -webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent,#000 22%,#000 80%,transparent),linear-gradient(180deg,transparent,#000 16%,#000 84%,transparent);
+  mask-composite:intersect}
+.chip{
+  position:absolute;display:flex;align-items:center;gap:8px;padding:7px 14px 7px 10px;border-radius:10px;
+  background:rgba(30,30,32,.7);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  font-size:12.5px;color:#ddd;white-space:nowrap;animation:float 6s ease-in-out infinite;
+}
+.chip i{display:inline-grid;place-items:center;width:15px;height:15px;border:1px solid #ccc;border-radius:50%;font-style:normal;font-size:12px;line-height:1}
+.chip.c1{right:34%;top:15%}
+.chip.c2{right:7%;top:14%;animation-delay:-2s}
+.chip.c3{left:44%;top:50%;animation-delay:-4s}
+@keyframes float{50%{transform:translateY(-10px)}}
+.big{
+  position:absolute;left:44px;bottom:30px;font-family:var(--display);font-weight:500;
+  font-size:clamp(78px,16vw,210px);line-height:.9;color:transparent;letter-spacing:-.02em;
+  -webkit-text-stroke:0;background:linear-gradient(180deg,#8a8a8e,#3a3a3d);-webkit-background-clip:text;background-clip:text;
+  display:flex;align-items:flex-start;
+}
+.big small{font-size:.42em;margin-top:.05em;margin-left:.04em;opacity:.9}
+.heroTxt{position:absolute;right:44px;bottom:44px;width:min(400px,38%)}
+.heroTxt h1{font-size:18px;font-weight:600;font-family:var(--body);margin-bottom:12px}
+.heroTxt p{font-size:17px;line-height:1.35;color:#e9e9ea;margin-bottom:22px}
+.demo{position:absolute;left:48px;top:44px;font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--dim)}
+
+.btn{
+  display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:10px;font-weight:600;font-size:14.5px;
+  background:#f2f2f2;color:#0a0a0a;border:1px solid #fff;position:relative;overflow:hidden;
+  transition:transform .25s,box-shadow .25s;
+}
+.btn::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(0,0,0,.14) 50%,transparent 70%);transform:translateX(-120%);transition:transform .7s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px -8px rgba(255,255,255,.35)}
+.btn:hover::after{transform:translateX(120%)}
+.btn.ghost{background:var(--glass);color:var(--ink);border-color:rgba(255,255,255,.18)}
+.btn svg{width:18px;height:18px}
+
+/* ---------- panel 2 ---------- */
+.p2{padding:46px 44px 44px;min-height:480px}
+.p2 h2,.p3 h2{font-size:clamp(26px,3.6vw,38px);color:#ececec}
+.p2 h2 span,.p3 h2 span{display:block;padding-left:clamp(40px,9vw,120px)}
+.p2 .lead{margin-top:70px;max-width:380px;font-size:15.5px;line-height:1.4;color:#e8e8e8}
+.specs{margin-top:14px;max-width:420px;display:grid;gap:10px;font-size:15px;color:#e8e8e8}
+.specs div{display:grid;grid-template-columns:96px 1fr;gap:6px}
+.specs b{font-weight:400;text-align:right;color:#bdbdc1}
+.grid2{position:absolute;right:44px;bottom:44px;left:44px;display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:end;max-width:640px;pointer-events:none}
+.grid2 .card{pointer-events:auto}
+.card{
+  position:relative;border-radius:10px;padding:18px 18px;overflow:hidden;
+  background:linear-gradient(180deg,rgba(255,255,255,.085),rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.11);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+  transition:transform .3s,border-color .3s,background .3s;transform-style:preserve-3d;will-change:transform;
+}
+.card:hover{border-color:rgba(255,255,255,.3)}
+.card .plus{position:absolute;right:12px;top:12px;width:15px;height:15px;opacity:.8}
+.card h3{font-family:var(--body);font-weight:500;font-size:16.5px;line-height:1.2;color:#f1f1f1}
+.card p{font-size:13px;color:var(--muted);margin-top:8px;line-height:1.45}
+.g1,.g2{min-height:96px;display:flex;align-items:flex-end}
+.g3{min-height:340px;display:flex;align-items:flex-end}
+.g4{min-height:300px;display:flex;align-items:flex-start;padding-top:20px}
+.g3 canvas,.g4 canvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.85}
+.g3 *:not(canvas),.g4 *:not(canvas){position:relative;z-index:1}
+.g4 .plus{position:absolute}
+.g3 .plus{position:absolute}
+
+/* ---------- panel 3 ---------- */
+.p3{padding:46px 44px 44px;min-height:560px}
+.trio{margin-top:60px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,.95fr);gap:14px;align-items:stretch}
+.person{padding:20px 18px 22px}
+.av{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 30% 25%,#5a5a5e,#1b1b1d);border:1px solid rgba(255,255,255,.2)}
+.av svg{width:22px;height:22px;stroke:#eee;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+.person .head{display:flex;align-items:center;gap:14px;margin-bottom:62px}
+.person .role{font-size:17px;font-weight:500}
+.person .name{font-size:11px;color:var(--muted);margin-top:3px}
+.person ul{list-style:none;display:grid;gap:5px;font-size:12px;color:#c9c9cd;line-height:1.35}
+.person li{padding-left:12px;position:relative}
+.person li::before{content:"";position:absolute;left:0;top:.55em;width:4px;height:4px;border-radius:50%;background:#999}
+.closer{align-self:end;padding:0 0 6px 14px;font-size:15px;line-height:1.35;color:#ddd}
+.closer p+p{margin-top:16px;color:#fff}
+
+
+/* ---------- feature cards (glow tiles) ---------- */
+.fxhead{padding:46px 44px 0}
+.fxgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;padding:40px 44px 44px}
+.fx{
+  position:relative;height:370px;border-radius:22px;padding:26px 26px 0;overflow:hidden;
+  background:#040404;border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 30px 60px -34px #000,inset 0 1px 0 rgba(255,255,255,.07);
+  transition:transform .35s cubic-bezier(.2,.7,.2,1),border-color .35s,box-shadow .35s;
+  isolation:isolate;
+}
+.fx:hover{transform:translateY(-6px);border-color:rgba(255,255,255,.28);box-shadow:0 40px 70px -30px rgba(255,255,255,.12),inset 0 1px 0 rgba(255,255,255,.12)}
+.fx::before{ /* the white glow */
+  content:"";position:absolute;z-index:-1;width:130%;height:80%;left:-15%;bottom:-48%;border-radius:50%;
+  background:radial-gradient(closest-side,#fff 0%,rgba(255,255,255,.75) 35%,rgba(255,255,255,0) 100%);
+  filter:blur(14px);opacity:.92;animation:pulse 6s ease-in-out infinite;
+}
+.fx.gl::before{left:auto;right:-45%;bottom:-18%;width:90%;height:90%}
+.fx.gr::before{left:-45%;right:auto;bottom:-18%;width:90%;height:90%}
+.fx.gt::before{left:-10%;width:120%;bottom:auto;top:-62%;opacity:.55}
+@keyframes pulse{50%{opacity:.6;transform:scale(1.06)}}
+.fx h3{font-family:var(--body);font-weight:600;font-size:18px;color:#fff}
+.fx p{margin-top:12px;font-size:13.5px;line-height:1.5;color:#b5b5ba;max-width:300px}
+.fx .art{position:absolute;left:0;right:0;bottom:0;height:56%}
+.fx svg.il{width:100%;height:100%;display:block;overflow:visible}
+.il .stk{fill:none;stroke:rgba(255,255,255,.28);stroke-width:1}
+.il .tile{fill:#0b0b0c;stroke:rgba(255,255,255,.3);stroke-width:1}
+.il .ico{fill:none;stroke:#f2f2f2;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.il .solid{fill:#f2f2f2}
+.il .dim{fill:rgba(255,255,255,.14)}
+.il .bright{fill:#fff}
+/* illustration animations */
+.nod{transform-box:fill-box;transform-origin:center;animation:nod 3.6s ease-in-out infinite}
+.nod:nth-of-type(2){animation-delay:.5s}.nod:nth-of-type(3){animation-delay:1s}.nod:nth-of-type(4){animation-delay:1.5s}
+@keyframes nod{0%,100%{transform:translateY(0);opacity:.7}50%{transform:translateY(-6px);opacity:1}}
+.flow{stroke-dasharray:5 6;animation:flow 1.6s linear infinite}
+@keyframes flow{to{stroke-dashoffset:-22}}
+.hover{transform-box:fill-box;transform-origin:center;animation:hov 4.5s ease-in-out infinite}
+@keyframes hov{50%{transform:translate(4px,-8px) rotate(-4deg)}}
+.curve{stroke-dasharray:240;stroke-dashoffset:240;animation:curve 4s ease-in-out infinite}
+@keyframes curve{0%{stroke-dashoffset:240}55%,100%{stroke-dashoffset:0}}
+.tw{animation:tw 3s ease-in-out infinite}
+.tw:nth-child(3n){animation-delay:.7s}.tw:nth-child(3n+1){animation-delay:1.6s}.tw:nth-child(5n){animation-delay:2.2s}
+@keyframes tw{0%,100%{opacity:.15}50%{opacity:1}}
+.spin{transform-box:fill-box;transform-origin:center;animation:spin 18s linear infinite}
+.spin.rev{animation-direction:reverse;animation-duration:26s}
+@keyframes spin{to{transform:rotate(360deg)}}
+.gauge{stroke-dasharray:240;animation:gauge 5s ease-in-out infinite}
+@keyframes gauge{0%{stroke-dashoffset:240}50%,80%{stroke-dashoffset:70}100%{stroke-dashoffset:240}}
+.scan{animation:scan 2.8s ease-in-out infinite}
+@keyframes scan{0%,100%{transform:translateY(-22px);opacity:.2}50%{transform:translateY(22px);opacity:1}}
+.bob{transform-box:fill-box;transform-origin:center;animation:bob 5s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-7px)}}
+.pop{transform-box:fill-box;transform-origin:center;animation:pop 3.2s ease-in-out infinite}
+@keyframes pop{0%,60%,100%{transform:scale(1)}75%{transform:scale(1.18)}}
+.fx.rv.in{transition:opacity .9s ease,transform .35s cubic-bezier(.2,.7,.2,1),border-color .35s,box-shadow .35s}
+.fx.rv.in:hover{transform:translateY(-6px)}
+@media (max-width:980px){.fxhead{padding:30px 22px 0}.fxgrid{grid-template-columns:1fr 1fr;padding:30px 22px 26px}}
+@media (max-width:620px){.fxgrid{grid-template-columns:1fr}.fx{height:350px}}
+
+/* ---------- CTA ---------- */
+.cta{padding:56px 44px;display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center}
+.cta h2{font-size:clamp(26px,4vw,44px);margin-bottom:16px}
+.cta p{color:#b8b8bc;font-size:16px;line-height:1.5;max-width:460px;margin-bottom:26px}
+.cta .row{display:flex;gap:12px;flex-wrap:wrap}
+.meta{display:flex;gap:26px;margin-top:26px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}
+.meta b{display:block;color:#eee;font-weight:500;font-size:15px;margin-bottom:2px;font-family:var(--display)}
+.steps{display:grid;gap:12px;counter-reset:s}
+.steps .card{display:flex;gap:16px;align-items:flex-start;padding:16px 18px}
+.steps .card::before{counter-increment:s;content:"0" counter(s);font-family:var(--display);color:#777;font-size:15px;padding-top:2px}
+.steps h3{font-size:15px}
+.steps p{margin-top:4px}
+
+footer{position:relative;z-index:1;text-align:center;color:var(--dim);font-size:12.5px;padding:18px 0 46px;letter-spacing:.04em}
+
+/* ---------- reveal ---------- */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+@keyframes fade{to{opacity:1}}
+
+/* ---------- responsive ---------- */
+@media (max-width:980px){
+  .hero{min-height:0;padding:30px 22px 26px;display:flex;flex-direction:column;gap:14px}
+  #orb{width:100%;height:56%;right:-20%;top:0;opacity:.8}
+  .demo,.big,.heroTxt{position:relative;left:auto;right:auto;top:auto;bottom:auto;width:auto}
+  .demo{order:0}
+  .big{order:1;margin-top:150px;font-size:clamp(70px,24vw,170px)}
+  .heroTxt{order:2}
+  .chip.c1{right:auto;left:8%;top:13%}.chip.c2{right:6%;top:6%}.chip.c3{left:auto;right:10%;top:34%}
+  .p2,.p3{padding:30px 22px}
+  .p2 .lead{margin-top:34px}
+  .grid2{position:static;margin-top:30px;grid-template-columns:1fr 1fr}
+  .g3,.g4{min-height:230px}
+  .trio{grid-template-columns:1fr;margin-top:34px}
+  .person .head{margin-bottom:26px}
+  .closer{padding:6px 0 0}
+  .cta{grid-template-columns:1fr;padding:34px 22px}
+  .bar .tag{display:none}
+}
+@media (max-width:520px){ .grid2{grid-template-columns:1fr} .g1,.g2{min-height:80px} .specs div{grid-template-columns:84px 1fr} }
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}.swoosh path{stroke-dashoffset:0}
+}
+
+/* ---------- glass download button ---------- */
+.dlbtn{
+  position:relative;display:inline-flex;align-items:center;gap:16px;padding:12px 12px 12px 26px;border-radius:16px;
+  background:linear-gradient(180deg,#2c2c30,#111113);color:#fff;font-weight:500;font-size:16px;letter-spacing:.01em;
+  border:1px solid rgba(255,255,255,.17);cursor:pointer;isolation:isolate;
+  box-shadow:0 0 0 1px rgba(0,0,0,.7),0 16px 34px -14px #000,inset 0 1px 0 rgba(255,255,255,.2),0 0 0 0 rgba(255,255,255,0);
+  transition:transform .25s,box-shadow .35s,border-color .3s;
+}
+.dlbtn:hover{transform:translateY(-2px);border-color:rgba(255,255,255,.4);box-shadow:0 0 0 1px rgba(0,0,0,.7),0 18px 40px -12px rgba(255,255,255,.28),inset 0 1px 0 rgba(255,255,255,.3),0 0 26px -4px rgba(255,255,255,.28)}
+.dlbtn:active{transform:translateY(0) scale(.98)}
+.dlclip{position:absolute;inset:0;border-radius:inherit;overflow:hidden;z-index:-1;pointer-events:none}
+.dlclip::after{content:"";position:absolute;top:0;bottom:0;width:46%;left:-60%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.2),transparent);animation:shine 4.6s ease-in-out infinite}
+@keyframes shine{0%,55%{left:-60%}100%{left:130%}}
+.dlfill{position:absolute;inset:0;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,rgba(255,255,255,.04),rgba(255,255,255,.3));}
+.dlbtn.going .dlfill{transform:scaleX(1);transition:transform 1.4s cubic-bezier(.35,.1,.2,1)}
+.dlbtn.done .dlfill{transform:scaleX(1);opacity:0;transition:opacity .6s}
+.dltxt{white-space:nowrap}
+.dlic{position:relative;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#f1f1f3;color:#0b0b0c;box-shadow:0 0 14px rgba(255,255,255,.35);flex:none}
+.dlic svg{position:absolute;width:16px;height:16px;transition:transform .35s,opacity .25s}
+.dlic .i-chk{opacity:0;transform:scale(.4) rotate(-40deg)}
+.dlbtn:hover .i-plus{transform:rotate(90deg)}
+.i-spin{position:absolute;inset:5px;border-radius:50%;border:2px solid rgba(0,0,0,.2);border-top-color:#000;opacity:0;animation:spin1 .8s linear infinite}
+@keyframes spin1{to{transform:rotate(360deg)}}
+.dlbtn.going .i-plus{opacity:0;transform:scale(.3)}
+.dlbtn.going .i-spin{opacity:1}
+.dlbtn.done .i-spin{opacity:0}
+.dlbtn.done .i-plus{opacity:0}
+.dlbtn.done .i-chk{opacity:1;transform:none}
+.dltoast{
+  position:absolute;left:50%;bottom:calc(100% + 12px);display:flex;align-items:center;gap:8px;white-space:nowrap;
+  padding:7px 14px 7px 9px;border-radius:999px;font-size:12px;font-weight:600;color:#101012;
+  background:linear-gradient(180deg,#f0f0f6,#c9c9d6);box-shadow:0 10px 24px -8px rgba(255,255,255,.4);
+  opacity:0;transform:translate(-50%,10px) scale(.8);pointer-events:none;transition:opacity .25s,transform .45s cubic-bezier(.3,1.6,.4,1);
+}
+.dltoast b{width:14px;height:14px;border-radius:50%;border:1.6px solid #111;position:relative}
+.dltoast b::after{content:"";position:absolute;left:3px;top:1.5px;width:3px;height:6px;border:solid #111;border-width:0 1.6px 1.6px 0;transform:rotate(45deg)}
+.dlbtn.done .dltoast{opacity:1;transform:translate(-50%,0) scale(1);animation:tbob 2.4s ease-in-out .5s infinite}
+@keyframes tbob{50%{transform:translate(-50%,-4px) scale(1)}}
+
+/* ---------- download section: steps ---------- */
+.cta{display:block;text-align:center;padding:56px 44px 40px}
+.cta p{margin-left:auto;margin-right:auto;margin-bottom:56px}
+.cta .row{justify-content:center;align-items:center}
+.cta .meta{justify-content:center}
+.stepgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:56px;text-align:left}
+.sc{position:relative;padding:0 24px 24px;border-radius:20px;overflow:hidden;isolation:isolate;
+  background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.015));border:1px solid rgba(255,255,255,.09)}
+.sc::before{content:"";position:absolute;z-index:-1;left:10%;right:10%;top:18%;height:120px;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(255,255,255,.55),transparent);filter:blur(18px);opacity:.2}
+.sc1{animation:sc1 9s ease-in-out infinite}.sc2{animation:sc2 9s ease-in-out infinite}.sc3{animation:sc3 9s ease-in-out infinite}
+.sc1::before{animation:g1 9s ease-in-out infinite}.sc2::before{animation:g2 9s ease-in-out infinite}.sc3::before{animation:g3 9s ease-in-out infinite}
+@keyframes g1{0%,30%{opacity:.85}38%,100%{opacity:.15}}
+@keyframes g2{0%,30%{opacity:.15}38%,63%{opacity:.85}71%,100%{opacity:.15}}
+@keyframes g3{0%,63%{opacity:.15}71%,92%{opacity:.85}100%{opacity:.15}}
+@keyframes sc1{0%,30%{border-color:rgba(255,255,255,.3)}38%,100%{border-color:rgba(255,255,255,.09)}}
+@keyframes sc2{0%,30%{border-color:rgba(255,255,255,.09)}38%,63%{border-color:rgba(255,255,255,.3)}71%,100%{border-color:rgba(255,255,255,.09)}}
+@keyframes sc3{0%,63%{border-color:rgba(255,255,255,.09)}71%,92%{border-color:rgba(255,255,255,.3)}100%{border-color:rgba(255,255,255,.09)}}
+.scart{height:190px;margin:0 -24px 14px}
+.scart svg{width:100%;height:100%;display:block;overflow:visible}
+.scart text{font-family:var(--body)}
+.sc h3{font-family:var(--body);font-weight:600;font-size:17px;color:#f2f2f2}
+.sc p{margin:8px 0 0;font-size:13.5px;color:#9b9ba1;line-height:1.5;max-width:none}
+.rise{animation:rise 3.6s ease-in-out infinite}
+@keyframes rise{0%,15%{transform:translateY(22px)}45%,80%{transform:translateY(-6px)}100%{transform:translateY(22px)}}
+.curs{animation:curs 3.6s ease-in-out infinite}
+@keyframes curs{0%{transform:translate(50px,40px)}35%{transform:translate(0,0)}42%{transform:translate(0,0) scale(.88)}50%{transform:translate(0,0) scale(1)}100%{transform:translate(50px,40px)}}
+.curs,.curs2{transform-box:fill-box;transform-origin:left top}
+.trk{fill:rgba(255,255,255,.14);animation:trk 3.6s ease-in-out infinite}
+@keyframes trk{0%,30%{fill:rgba(255,255,255,.14)}45%,85%{fill:rgba(255,255,255,.88)}100%{fill:rgba(255,255,255,.14)}}
+.knob{animation:knob 3.6s ease-in-out infinite;filter:drop-shadow(0 0 4px rgba(255,255,255,.6))}
+@keyframes knob{0%,30%{transform:translateX(0)}45%,85%{transform:translateX(18px)}100%{transform:translateX(0)}}
+.curs2{animation:curs2 3.6s ease-in-out infinite}
+@keyframes curs2{0%{transform:translate(30px,30px);opacity:0}15%{opacity:1}28%{transform:translate(-14px,-6px)}34%{transform:translate(-14px,-6px) scale(.85)}42%,70%{transform:translate(-14px,-6px)}90%,100%{transform:translate(30px,30px);opacity:0}}
+.toast{animation:toast 4s cubic-bezier(.3,1.4,.4,1) infinite;transform-box:fill-box;transform-origin:center}
+@keyframes toast{0%,8%{transform:translateY(10px) scale(.8);opacity:0}22%,80%{transform:none;opacity:1}100%{transform:translateY(-6px);opacity:0}}
+
+/* stepper */
+.stepper{display:flex;align-items:center;justify-content:center;margin-top:30px}
+.dot{display:grid;place-items:center;width:46px;height:46px;border-radius:50%;font-size:16px;color:#7a7a80;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)}
+.ln{position:relative;width:min(22vw,230px);height:1px;background:rgba(255,255,255,.12);overflow:hidden}
+.ln i{position:absolute;inset:0;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,rgba(255,255,255,.2),#fff)}
+.d1{animation:d1 9s infinite}.d2{animation:d2 9s infinite}.d3{animation:d3 9s infinite}
+.l1{animation:l1 9s infinite}.l2{animation:l2 9s infinite}
+@keyframes d1{0%,93%{color:#fff;border-color:#fff;box-shadow:0 0 22px rgba(255,255,255,.45);background:rgba(255,255,255,.1)}100%{color:#7a7a80;border-color:rgba(255,255,255,.1);box-shadow:none;background:rgba(255,255,255,.04)}}
+@keyframes d2{0%,30%{color:#7a7a80;border-color:rgba(255,255,255,.1);box-shadow:none;background:rgba(255,255,255,.04)}38%,93%{color:#fff;border-color:#fff;box-shadow:0 0 22px rgba(255,255,255,.45);background:rgba(255,255,255,.1)}100%{color:#7a7a80;border-color:rgba(255,255,255,.1);box-shadow:none;background:rgba(255,255,255,.04)}}
+@keyframes d3{0%,63%{color:#7a7a80;border-color:rgba(255,255,255,.1);box-shadow:none;background:rgba(255,255,255,.04)}71%,93%{color:#fff;border-color:#fff;box-shadow:0 0 22px rgba(255,255,255,.45);background:rgba(255,255,255,.1)}100%{color:#7a7a80;border-color:rgba(255,255,255,.1);box-shadow:none;background:rgba(255,255,255,.04)}}
+@keyframes l1{0%,8%{transform:scaleX(0)}34%,93%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:0}}
+@keyframes l2{0%,38%{transform:scaleX(0)}67%,93%{transform:scaleX(1)}100%{transform:scaleX(1);opacity:0}}
+@media (max-width:980px){
+  .cta{padding:34px 22px 28px}
+  .stepgrid{grid-template-columns:1fr;margin-top:34px}
+  .ln{width:min(18vw,90px)}
+}
+@media (prefers-reduced-motion:reduce){
+  .ln i{transform:scaleX(1)}.dot{color:#fff;border-color:rgba(255,255,255,.5)}
+}
+/* ---------- repo additions ---------- */
+.brand img{width:30px;height:30px;border-radius:8px;object-fit:cover}
+.topnav{display:flex;gap:22px;font-size:14px;color:#a9a9ae}
+.topnav a{transition:color .2s}.topnav a:hover{color:#fff}
+@media (max-width:980px){.topnav{display:none}}
+.sec{padding:46px 44px 44px}
+.sechead h2{font-size:clamp(24px,3.4vw,36px);color:#ececec}
+.sechead p{margin-top:12px;color:#a0a0a6;max-width:560px;line-height:1.5;font-size:15px}
+.specs2{margin-top:30px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.sp{padding:18px 20px;border-radius:14px;background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;gap:6px;transition:border-color .3s,transform .3s}
+.sp:hover{border-color:rgba(255,255,255,.28);transform:translateY(-3px)}
+.sp span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#76767c}
+.sp b{font-weight:500;font-size:16px;color:#f2f2f2;overflow-wrap:anywhere}
+.sp b.mono,.hv code,.caution code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.sp b.mono{font-size:13.5px}
+.sp em{font-style:normal;font-size:12.5px;color:#85858b}
+.sp.wide{margin-top:14px}
+.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
+.pills i{font-style:normal;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;padding:6px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);color:#ddd}
+.hashbox{margin-top:30px;padding:8px 20px 18px;border-radius:16px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.1)}
+.hrow{padding:16px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.hl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#76767c;margin-bottom:8px}
+.hv{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.hv code{flex:1;min-width:0;font-size:12.5px;color:#e6e6e8;overflow-wrap:anywhere;line-height:1.5}
+.copy-btn{font:inherit;font-size:12.5px;font-weight:600;color:#fff;padding:7px 14px;border-radius:9px;cursor:pointer;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2);transition:background .2s,transform .2s}
+.copy-btn:hover{background:rgba(255,255,255,.18);transform:translateY(-1px)}
+.hnote{margin-top:14px;font-size:13px;line-height:1.5;color:#8d8d93}
+.caution{margin-top:16px;padding:18px 20px;border-radius:14px;border:1px solid rgba(255,255,255,.18);border-left:3px solid #fff;background:rgba(255,255,255,.04)}
+.caution b{font-size:14px;color:#fff}.caution p{margin-top:8px;font-size:13.5px;line-height:1.55;color:#b5b5ba}
+.caution code{font-size:12px;color:#fff;background:rgba(255,255,255,.08);padding:1px 6px;border-radius:5px}
+.faqs{margin-top:28px;display:grid;gap:10px}
+.faqs details{border-radius:14px;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.035);transition:border-color .3s,background .3s}
+.faqs details[open]{border-color:rgba(255,255,255,.28);background:rgba(255,255,255,.06)}
+.faqs summary{list-style:none;cursor:pointer;padding:17px 54px 17px 20px;font-weight:500;font-size:15.5px;position:relative;color:#f0f0f2}
+.faqs summary::-webkit-details-marker{display:none}
+.faqs summary::after{content:"+";position:absolute;right:18px;top:50%;width:26px;height:26px;margin-top:-13px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.25);transition:transform .35s,background .3s}
+.faqs details[open] summary::after{transform:rotate(135deg);background:rgba(255,255,255,.14)}
+.faqs details p{padding:0 20px 18px;font-size:14px;line-height:1.6;color:#a9a9ae;animation:faqin .4s ease}
+@keyframes faqin{from{opacity:0;transform:translateY(-6px)}}
+.foot{position:relative;z-index:1;text-align:center;color:var(--dim);font-size:12.5px;padding:18px 20px 46px;letter-spacing:.03em;display:grid;gap:14px}
+.foot nav{display:flex;gap:8px 22px;justify-content:center;flex-wrap:wrap}
+.foot nav a{color:#9a9aa0;transition:color .2s}.foot nav a:hover{color:#fff}
+@media (max-width:980px){.sec{padding:30px 22px}.specs2{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.specs2{grid-template-columns:1fr}}
+/* =====================================================================
+   v2 · responsive + app-specific additions (same black / white theme)
+   ===================================================================== */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+[hidden]{display:none!important}
+.wrap{padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}
+img,svg,canvas{max-width:100%}
+
+/* mobile menu */
+.burger{display:none;flex:none;width:44px;height:44px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:var(--glass);cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:0}
+.burger span{display:block;width:18px;height:1.6px;background:#e8e8ea;border-radius:2px;transition:transform .3s}
+.burger[aria-expanded="true"] span:first-child{transform:translateY(3.8px) rotate(45deg)}
+.burger[aria-expanded="true"] span:last-child{transform:translateY(-3.8px) rotate(-45deg)}
+.sheet{display:none}
+.sheet a{padding:14px 16px;border-radius:10px;font-size:15px;color:#cfcfd2}
+.sheet a:active,.sheet a:hover{background:var(--glass2)}
+.sheet a.go{margin-top:6px;background:#f2f2f2;color:#0a0a0a;font-weight:600;text-align:center}
+.topnav a{padding:8px 0}
+
+/* stat strip */
+.strip{position:relative;z-index:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:28px;border:1px solid var(--line);border-radius:6px;background:linear-gradient(180deg,#121212,#090909);overflow:hidden}
+.strip div{padding:20px 22px;display:grid;gap:4px}
+.strip div+div{border-left:1px solid var(--line)}
+.strip b{font-family:var(--display);font-weight:500;font-size:clamp(15px,2vw,20px);color:#f2f2f2;letter-spacing:.02em}
+.strip span{font-size:12.5px;color:var(--muted)}
+
+/* about: real grid instead of absolute positioning */
+.p2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);column-gap:44px;align-content:start;min-height:0}
+.p2 h2,.p2 .lead,.p2 .specs{grid-column:1}
+.p2 .lead{margin-top:44px}
+.p2 .grid2{position:static;grid-column:2;grid-row:1 / span 3;max-width:none;left:auto;right:auto;bottom:auto;align-self:center;pointer-events:auto}
+.grid2 .card{display:block;min-height:150px;padding:22px 20px}
+.grid2 .card h3{margin-top:34px}
+.grid2 .card p{margin-top:8px}
+
+/* inside the app */
+.pv{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(28px,5vw,64px);align-items:center}
+.pv h2{font-size:clamp(26px,3.6vw,38px);color:#ececec}
+.lede{margin-top:12px;color:#a0a0a6;font-size:15px;line-height:1.5;max-width:520px}
+.tl{list-style:none;margin-top:30px;display:grid;gap:0;counter-reset:t}
+.tl li{position:relative;display:grid;gap:3px;padding:0 0 22px 52px;counter-increment:t}
+.tl li::before{content:counter(t);position:absolute;left:0;top:0;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-size:13px;color:#fff;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.07)}
+.tl li::after{content:"";position:absolute;left:17.5px;top:42px;bottom:6px;width:1px;background:linear-gradient(rgba(255,255,255,.28),rgba(255,255,255,.04))}
+.tl li:last-child{padding-bottom:0}.tl li:last-child::after{display:none}
+.tl b{font-weight:600;font-size:16px;color:#f2f2f2;padding-top:6px}
+.tl span{font-size:14px;line-height:1.55;color:#a9a9ae}
+.lockrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.lockrow span{font-size:12.5px;padding:7px 13px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);color:#ddd}
+.phonewrap{display:grid;justify-items:center;gap:14px;margin:0}
+.phonewrap figcaption{font-size:12px;color:var(--dim);text-align:center;max-width:300px;line-height:1.45}
+.phone{position:relative;width:min(290px,100%);padding:11px;border-radius:40px;background:#050506;border:1px solid rgba(255,255,255,.2);box-shadow:0 40px 80px -30px #000,0 0 70px -20px rgba(255,255,255,.22),inset 0 1px 0 rgba(255,255,255,.12);animation:float 7s ease-in-out infinite}
+.notch{position:absolute;left:50%;top:17px;width:70px;height:18px;border-radius:12px;background:#000;transform:translateX(-50%);z-index:2}
+.scr{display:grid;gap:11px;padding:44px 16px 18px;border-radius:30px;background:linear-gradient(180deg,#161617,#0a0a0b);overflow:hidden}
+.ph-top{display:flex;justify-content:space-between;align-items:baseline;font-size:11.5px;color:var(--muted)}
+.ph-top b{font-family:var(--display);font-weight:500;letter-spacing:.08em;color:#ddd}
+.ph-bal{position:relative;display:grid;gap:3px;padding:16px;border-radius:16px;background:radial-gradient(120% 140% at 85% 120%,rgba(255,255,255,.5),rgba(255,255,255,.04) 55%),#101011;border:1px solid rgba(255,255,255,.14)}
+.ph-bal small,.ph-card small,.ph-goal small{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#8d8d92}
+.ph-bal strong{font-family:var(--display);font-weight:500;font-size:26px;color:#fff}
+.ph-bal em{font-style:normal;font-size:11px;color:#b5b5ba}
+.ph-row{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.ph-card{display:grid;gap:4px;padding:12px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
+.ph-card strong{font-family:var(--display);font-weight:500;font-size:19px;color:#f2f2f2}
+.ph-goal{display:grid;grid-template-columns:1fr auto;gap:8px 10px;align-items:center;padding:12px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1)}
+.ph-goal small{grid-column:1/-1}.ph-goal span{font-size:12px;color:#ddd}
+.ph-goal .gbar{height:6px;border-radius:6px;background:rgba(255,255,255,.14);overflow:hidden}
+.ph-goal .gbar i{display:block;height:100%;width:72%;border-radius:6px;background:#fff;box-shadow:0 0 10px rgba(255,255,255,.6)}
+.ph-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.ph-pad i{font-style:normal;display:grid;place-items:center;height:32px;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);font-size:13px;color:#ddd}
+.ph-pad i.k{background:#f2f2f2;color:#0a0a0a;font-size:10.5px;font-weight:600}
+
+/* sticky download dock (phones) + device hint */
+.dockbar{display:none}
+.note-device{position:relative;z-index:1;width:min(1140px,calc(100% - 40px));margin:0 auto 22px;padding:14px 18px;border-radius:12px;border:1px solid var(--line);background:var(--glass);color:#b5b5ba;font-size:13.5px;line-height:1.5;display:flex;gap:6px 14px;flex-wrap:wrap;align-items:center}
+.note-device b{color:#fff;font-weight:600}
+.note-device button{font:inherit;font-size:12.5px;font-weight:600;color:#fff;min-height:40px;padding:0 14px;border-radius:9px;cursor:pointer;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.2)}
+.copy-btn{min-height:40px}
+.hero .chip.c3{top:44%}
+.heroTxt p{font-size:clamp(15px,1.5vw,17px)}
+.fx{height:auto;min-height:370px}
+
+/* ---------- ≥1500 ---------- */
+@media (min-width:1500px){.wrap{max-width:1280px}}
+
+/* ---------- tablet & down ---------- */
+@media (max-width:980px){
+  .burger{display:flex}
+  .sheet{display:grid;gap:2px;position:relative;z-index:6;max-height:0;overflow:hidden;opacity:0;padding:0 8px;margin-bottom:0;border-radius:14px;border:1px solid transparent;background:rgba(14,14,15,.96);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);transition:max-height .35s ease,opacity .25s,padding .35s,margin .35s}
+  .sheet.open{max-height:460px;opacity:1;padding:8px;margin-bottom:16px;border-color:var(--line)}
+  .bar{padding:18px 0;gap:14px}
+  /* hero: flow layout, chips become a row */
+  .hero{flex-direction:row;flex-wrap:wrap;align-items:flex-start;align-content:flex-start;gap:12px;padding:26px 22px 28px}
+  .hero .demo,.hero .big,.hero .heroTxt{flex:0 0 100%;min-width:0}
+  .hero .demo{order:0}
+  .hero .chip{order:1;position:relative;inset:auto;right:auto;left:auto;top:auto!important;animation:none;font-size:12px}
+  .hero .big{order:2;margin-top:clamp(70px,22vw,140px)}
+  .hero .heroTxt{order:3}
+  #orb{height:62%;width:110%;right:-30%}
+  /* about */
+  .p2{grid-template-columns:1fr}
+  .p2 .lead{margin-top:22px}
+  .p2 .grid2{grid-column:1;grid-row:auto;margin-top:28px}
+  .pv{grid-template-columns:1fr}
+  .strip div{padding:16px 18px}
+}
+@media (max-width:760px){
+  .strip{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .strip div:nth-child(3){border-left:0}
+  .strip div:nth-child(n+3){border-top:1px solid var(--line)}
+  .fxgrid{grid-template-columns:1fr}
+  .fx{min-height:340px}
+  .stepper{margin-top:22px}
+  .ln{width:min(16vw,70px)}
+}
+
+/* ---------- phones ---------- */
+@media (max-width:700px){
+  .dockbar{display:flex;align-items:center;justify-content:space-between;gap:12px;position:fixed;z-index:40;left:max(12px,env(safe-area-inset-left));right:max(12px,env(safe-area-inset-right));bottom:calc(12px + env(safe-area-inset-bottom,0px));padding:10px 10px 10px 16px;border-radius:16px;border:1px solid rgba(255,255,255,.18);background:rgba(18,18,20,.88);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);box-shadow:0 18px 40px -10px #000;transform:translateY(150%);opacity:0;pointer-events:none;transition:transform .4s cubic-bezier(.2,.8,.2,1),opacity .3s}
+  .dockbar.show{transform:none;opacity:1;pointer-events:auto}
+  .dockbar div{display:grid;line-height:1.25;min-width:0}
+  .dockbar b{font-size:14px;font-weight:600;color:#fff}.dockbar span{font-size:12px;color:var(--muted)}
+  .dlmini{flex:none;display:inline-flex;align-items:center;min-height:44px;padding:0 20px;border-radius:11px;background:#f2f2f2;color:#0a0a0a;font-weight:600;font-size:14.5px}
+  .foot{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
+  .panel{margin-bottom:18px;border-radius:10px}
+  .sec,.p2,.pv{padding:28px 18px}
+  .fxhead{padding:28px 18px 0}.fxgrid{padding:24px 18px 20px;gap:14px}
+  .cta{padding:30px 18px 26px}
+  .cta .row{flex-direction:column;align-items:stretch}
+  .cta .row .btn{justify-content:center}
+  .meta{display:grid!important;grid-template-columns:repeat(3,1fr);gap:10px!important;font-size:11.5px}
+  .meta b{font-size:12.5px}
+  .p2 h2 span,.fxhead h2 span{padding-left:clamp(0px,7vw,32px)!important}
+  .grid2{grid-template-columns:1fr}
+  .grid2 .card{min-height:0}.grid2 .card h3{margin-top:26px}
+  .specs2{grid-template-columns:1fr}
+  .hv{align-items:flex-start}.hv code{flex-basis:100%}
+  .faqs summary{padding:16px 52px 16px 16px;font-size:15px}
+  .tl li{padding-left:48px}
+}
+@media (max-width:520px){
+  .wrap{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right))}
+  .hero{padding:22px 16px 24px}
+  .hero .heroTxt h1{font-size:17px}
+  .hero .dlbtn{width:100%;justify-content:space-between}
+  .dlbtn .dltoast{left:auto;right:0;transform:translate(0,10px) scale(.8)}
+  .dlbtn.done .dltoast{transform:translate(0,0) scale(1);animation:none}
+  .chip{padding:6px 11px 6px 8px}
+  .specs div{grid-template-columns:80px 1fr;font-size:14.5px}
+  .stepgrid{gap:14px}
+  .scart{height:170px}
+  .brand{font-size:16px}
+}
+@media (max-width:360px){
+  .fx{min-height:370px}
+  .strip b{font-size:14px}
+  .dlbtn{padding-left:18px;font-size:15px}
+}
+@media (max-height:480px) and (orientation:landscape){
+  .hero .big{margin-top:56px}
+}
+@media (hover:none){
+  body::before{display:none}
+  .card.tilt{transform:none!important}
+  .fx:hover,.sp:hover{transform:none}
+}
+</style>
 </head>
 <body>
-<a class="skip-link" href="#main">Skip to content</a>
-<header class="site-header">
-  <div class="container navbar">
+<div class="wrap">
+
+  <!-- top bar -->
+  <header class="bar">
     <a class="brand" href="index.html" aria-label="Viewny home">
-      <img src="assets/viewny-logo.png" alt="Viewny logo">
-      <span class="brand-copy"><span class="brand-name">Viewny</span><span class="brand-caption">Android application</span></span>
+      <img src="assets/viewny-logo.png" alt="Viewny logo" width="30" height="30">
+      VIEWNY
     </a>
-    <nav class="nav-links" aria-label="Main navigation">
-      <a href="#about">About</a><a href="#install">How to install</a><a href="#details">App details</a><a href="#integrity">File integrity</a><a href="#faq">FAQ</a>
-    </nav>
-    <div class="nav-actions">
-      <a class="btn btn-primary" href="downloads/viewny.apk" download="viewny.apk">Download APK <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 20h14" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" data-menu-toggle><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16" stroke-linecap="round"/></svg></button>
+    <span class="rule"></span>
+    <nav class="topnav" aria-label="Main navigation"><a href="#about">About</a><a href="#preview">Inside</a><a href="#features">Features</a><a href="#install">Install</a><a href="#details">Details</a><a href="#faq">FAQ</a></nav>
+    <a class="tag" href="downloads/viewny.apk" download="viewny.apk">Android APK ↓</a>
+    <button class="burger" type="button" aria-label="Menu" aria-expanded="false" aria-controls="sheet"><span></span><span></span></button>
+  </header>
+  <nav class="sheet" id="sheet" aria-label="Mobile navigation"><a href="#about">About</a><a href="#preview">Inside the app</a><a href="#features">Features</a><a href="#install">Install</a><a href="#details">Details</a><a href="#faq">FAQ</a><a class="go" href="downloads/viewny.apk" download="viewny.apk">Download APK ↓</a></nav>
+
+  <!-- 1 · HERO -->
+  <section class="panel hero rv" id="top">
+    <svg class="swoosh" style="left:0;top:0;width:340px;height:260px" viewBox="0 0 340 260" aria-hidden="true">
+      <path d="M0,230 C60,180 140,90 330,0"/><path d="M0,240 C70,190 150,105 336,14"/><path d="M0,250 C80,200 160,120 340,30"/><path d="M0,220 C50,170 130,78 320,0"/>
+    </svg>
+    <canvas id="orb" aria-hidden="true"></canvas>
+    <div class="chip c1"><i>+</i>Real-time earnings</div>
+    <div class="chip c2"><i>+</i>Daily goals</div>
+    <div class="chip c3"><i>+</i>Fast payouts</div>
+
+    <div class="demo">Demo · views logged today</div>
+    <div class="big" aria-label="Animated earnings counter"><span id="count">0</span><small>$</small></div>
+    <div class="heroTxt">
+      <h1>Know what your views are worth.</h1>
+      <p>Log views in seconds, watch earnings add up in real time, set goals and get paid — all in one place.</p>
+      <div class="row">
+        <a class="dlbtn" href="downloads/viewny.apk" download="viewny.apk" type="application/vnd.android.package-archive" data-apk><span class="dlclip"><span class="dlfill"></span></span><span class="dltxt">Download APK</span><span class="dlic"><svg class="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><svg class="i-chk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><i class="i-spin"></i></span><span class="dltoast"><b></b>Download started</span></a>
+      </div>
     </div>
+  </section>
+
+  <div class="strip rv" aria-label="At a glance">
+    <div><b>v2.0</b><span>Current release</span></div><div><b>Android 8.0+</b><span>Minimum version</span></div><div><b>19 MB</b><span>Download size</span></div><div><b>Free</b><span>No ads in the app</span></div>
   </div>
-  <nav class="container mobile-drawer" data-mobile-drawer aria-label="Mobile navigation">
-    <a href="#about">About Viewny</a><a href="#install">How to install</a><a href="#details">App details</a><a href="#integrity">File integrity</a><a href="#faq">FAQ</a>
-    <a href="privacy.html">Privacy policy</a><a href="terms.html">Terms &amp; conditions</a>
-  </nav>
-</header>
-<main id="main">
-  <section class="hero">
-    <div class="container hero-grid">
-      <div>
-        <span class="eyebrow">Viewny for Android</span>
-        <h1><span class="gradient-text">Everything about</span><br>Viewny. In one place.</h1>
-        <p class="hero-copy">Review the Viewny Android package before you install it. Get the current APK, check compatibility and file fingerprints, and follow a straightforward installation guide.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="downloads/viewny.apk" download="viewny.apk">Download Viewny APK <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 20h14" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-          <a class="btn btn-quiet" href="#details">Explore app details <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-6-6 6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+
+  <!-- 2 · WHAT IT DOES -->
+  <section class="panel p2 rv" id="about">
+    <svg class="swoosh" style="right:0;top:0;width:380px;height:240px" viewBox="0 0 380 240" aria-hidden="true">
+      <path d="M380,220 C320,170 250,70 70,0"/><path d="M380,232 C326,182 256,84 84,8"/><path d="M380,208 C310,150 240,56 56,0"/><path d="M380,244 C332,194 264,100 100,16"/>
+    </svg>
+    <h2 class="display scramble" data-t1="Built for creators." data-t2="Powered by clarity."><span>Built for creators.</span><span>Powered by clarity.</span></h2>
+    <p class="lead">Viewny connects every view you log with a live picture of what it earns you.</p>
+    <div class="specs">
+      <div><b>Speed:</b><span>Log views in seconds with a built-in numpad.</span></div>
+      <div><b>Precision:</b><span>See earnings over time, best day and platform breakdown.</span></div>
+    </div>
+    <div class="grid2">
+      <div class="card g1 tilt"><svg class="plus" viewBox="0 0 16 16" fill="none" stroke="#ddd" stroke-width="1.2"><path d="M1 5V1h4M11 1h4v4M15 11v4h-4M5 15H1v-4M8 5.5v5M5.5 8h5"/></svg><h3>Daily streaks &amp; targets</h3><p>Keep a day streak going and see views today at a glance.</p></div>
+      <div class="card g1 tilt"><svg class="plus" viewBox="0 0 16 16" fill="none" stroke="#ddd" stroke-width="1.2"><path d="M1 5V1h4M11 1h4v4M15 11v4h-4M5 15H1v-4M8 5.5v5M5.5 8h5"/></svg><h3>Rate-based earnings</h3><p>Earnings follow the per-1,000-views rate shown in the app.</p></div>
+      <div class="card g1 tilt"><svg class="plus" viewBox="0 0 16 16" fill="none" stroke="#ddd" stroke-width="1.2"><path d="M1 5V1h4M11 1h4v4M15 11v4h-4M5 15H1v-4M8 5.5v5M5.5 8h5"/></svg><h3>PDF reports &amp; receipts</h3><p>Export a PDF report and share receipts from the app.</p></div>
+      <div class="card g1 tilt"><svg class="plus" viewBox="0 0 16 16" fill="none" stroke="#ddd" stroke-width="1.2"><path d="M1 5V1h4M11 1h4v4M15 11v4h-4M5 15H1v-4M8 5.5v5M5.5 8h5"/></svg><h3>Home-screen widget</h3><p>Your balance and today’s earnings, without opening the app.</p></div>
+    </div>
+  </section>
+
+  <!-- 2b · INSIDE THE APP -->
+  <section class="panel sec pv rv" id="preview">
+    <div class="pvtxt">
+      <h2 class="display">Inside the app.</h2>
+      <p class="lede">From the first logged view to an approved payout, everything lives in one place.</p>
+      <ol class="tl">
+        <li><b>Log</b><span>Tap in your views on the built-in numpad. Edit or delete an entry any time.</span></li>
+        <li><b>Earn</b><span>Watch balance, streak and goal progress update. Analytics show your best day and a platform breakdown.</span></li>
+        <li><b>Withdraw</b><span>Request a payout from your available balance by bank transfer.</span></li>
+        <li><b>Review &amp; approval</b><span>Payouts are reviewed before they are approved. Follow the status and get a notification.</span></li>
+      </ol>
+      <div class="lockrow"><span>Biometric lock</span><span>4-digit PIN fallback</span><span>Auto-lock timer</span></div>
+    </div>
+    <figure class="phonewrap">
+      <div class="phone" role="img" aria-label="Illustration of the Viewny home screen with balance, streak and goal progress">
+        <i class="notch"></i>
+        <div class="scr">
+          <div class="ph-top"><span>Good day</span><b>Viewny</b></div>
+          <div class="ph-bal"><small>Available to withdraw</small><strong>$ 248.00</strong><em>+ today’s earnings</em></div>
+          <div class="ph-row"><div class="ph-card"><small>Day streak</small><strong>7</strong></div><div class="ph-card"><small>Views today</small><strong>1,240</strong></div></div>
+          <div class="ph-goal"><small>Your goal</small><div class="gbar"><i></i></div><span>72%</span></div>
+          <div class="ph-pad"><i>1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i><i>7</i><i>8</i><i>9</i><i class="k">Add views</i><i>0</i><i>⌫</i></div>
         </div>
-        <div class="hero-meta"><span><i class="dot"></i> Android APK</span><span>Version 1.2.0</span><span>23.4 MB download</span></div>
       </div>
-      <div class="hero-visual" aria-label="Viewny app branding and package summary">
-        <div class="visual-glow"></div>
-        <div class="float-chip chip-one"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="2.5" width="14" height="19" rx="2.5"/><path d="M10 18h4" stroke-linecap="round"/></svg> Android app</div>
-        <div class="app-card">
-          <div class="app-card-top"><span>Application profile</span><span>APK · 01</span></div>
-          <div class="app-card-brand"><img src="assets/viewny-logo.png" alt="Viewny app icon"></div>
-          <div class="app-card-title">Viewny</div>
-          <div class="app-card-sub">Android application</div>
-          <div class="app-card-bottom">
-            <div class="mini-stat"><strong>1.2.0</strong><span>Version</span></div>
-            <div class="mini-stat"><strong>23.4 MB</strong><span>File size</span></div>
-            <div class="mini-stat"><strong>API 24+</strong><span>Minimum</span></div>
-          </div>
-        </div>
-        <div class="float-chip chip-two"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 4.5 6v5.2c0 4.8 3.2 8.2 7.5 9.8 4.3-1.6 7.5-5 7.5-9.8V6L12 3Z"/><path d="m8.5 12 2.2 2.2 4.8-4.8" stroke-linecap="round" stroke-linejoin="round"/></svg> Package details available</div>
-      </div>
+      <figcaption>Illustration of the app’s layout — not a screenshot. Figures are sample values.</figcaption>
+    </figure>
+  </section>
+
+  <!-- 3 · FEATURE CARDS -->
+  <section class="panel rv" id="features">
+    <svg class="swoosh" style="right:0;top:0;width:380px;height:240px" viewBox="0 0 380 240" aria-hidden="true">
+      <path d="M380,220 C320,170 250,70 70,0"/><path d="M380,232 C326,182 256,84 84,8"/><path d="M380,208 C310,150 240,56 56,0"/>
+    </svg>
+    <div class="fxhead">
+      <h2 class="display" style="font-size:clamp(26px,3.6vw,38px);color:#ececec"><span style="display:block">Everything you need.</span><span style="display:block;padding-left:clamp(40px,9vw,120px)">Nothing you don’t.</span></h2>
+    </div>
+    <div class="fxgrid">
+
+      <article class="fx rv" style="transition-delay:.0s">
+        <h3>Log</h3>
+        <p>Add views in seconds with a built-in numpad and watch your earnings update in real time.</p>
+        <div class="art"><svg class="il" viewBox="0 0 300 190" preserveAspectRatio="xMidYMax meet">
+          <ellipse class="stk" cx="150" cy="215" rx="150" ry="120"/><ellipse class="stk" cx="150" cy="215" rx="112" ry="90"/>
+          <g class="nod"><rect class="tile" x="36" y="84" width="30" height="30" rx="9"/><circle class="solid" cx="51" cy="99" r="4"/></g>
+          <g class="nod"><rect class="tile" x="90" y="56" width="30" height="30" rx="9"/><path class="ico" d="M99,76 L105,66 L111,76"/></g>
+          <g class="nod"><rect class="tile" x="180" y="56" width="30" height="30" rx="9"/><path class="ico" d="M189,66 L195,76 L201,66"/></g>
+          <g class="nod"><rect class="tile" x="234" y="84" width="30" height="30" rx="9"/><circle class="ico" cx="249" cy="99" r="5"/></g>
+          <g transform="translate(150 152)"><rect class="tile" x="-27" y="-27" width="54" height="54" rx="15" style="stroke:rgba(255,255,255,.5)"/><g class="pop"><path class="ico" d="M-14,0 Q0,-12 14,0 Q0,12 -14,0Z"/><circle class="solid" r="3.2"/></g></g>
+        </svg></div>
+      </article>
+
+      <article class="fx gl rv" style="transition-delay:.12s">
+        <h3>Goals &amp; streaks</h3>
+        <p>Set a views or earnings goal, a daily target, and build a streak that keeps you coming back.</p>
+        <div class="art"><svg class="il" viewBox="0 0 300 190" preserveAspectRatio="xMidYMax meet">
+          <path class="stk flow" d="M10,40 H45 Q60,40 60,55 V80 Q60,92 72,92 H92"/>
+          <path class="stk flow" d="M110,140 H80 Q66,140 66,126 V110" style="animation-direction:reverse"/>
+          <g class="bob"><rect class="tile" x="92" y="68" width="52" height="52" rx="14" style="stroke:rgba(255,255,255,.5)"/><circle class="ico" cx="118" cy="94" r="12"/><circle class="ico" cx="118" cy="94" r="5"/><circle class="solid" cx="118" cy="94" r="1.6"/></g>
+          <g class="bob" style="animation-delay:-2s"><rect class="tile" x="110" y="124" width="32" height="32" rx="10"/><path class="ico" d="M119,140 l5,5 l9,-10"/></g>
+          <g class="hover"><path class="solid" d="M196,56 L230,70 L216,76 L214,92 Z" style="filter:drop-shadow(0 0 8px #fff)"/></g>
+        </svg></div>
+      </article>
+
+      <article class="fx gr rv" style="transition-delay:.24s">
+        <h3>Analytics</h3>
+        <p>Earnings over time, month by month, your best day and a platform breakdown — at a glance.</p>
+        <div class="art"><svg class="il" viewBox="0 0 300 190" preserveAspectRatio="xMidYMax meet">
+          <rect class="tile" x="24" y="22" width="252" height="150" rx="10" style="fill:#09090a"/>
+          <circle class="dim" cx="38" cy="36" r="3"/><circle class="dim" cx="50" cy="36" r="3"/><circle class="dim" cx="62" cy="36" r="3"/>
+          <rect class="dim" x="36" y="56" width="62" height="14" rx="4"/><rect class="dim" x="36" y="78" width="62" height="14" rx="4"/><rect class="dim" x="36" y="100" width="62" height="14" rx="4"/>
+          <path class="stk" d="M118,60 V150 H262"/>
+          <path class="ico curve" d="M122,148 C160,146 168,96 192,92 C216,88 228,70 258,66" style="stroke-width:2;filter:drop-shadow(0 0 5px #fff)"/>
+          <circle class="bright pop" cx="192" cy="92" r="3.5"/>
+          <g class="hover"><path class="solid" d="M240,22 L268,34 L256,40 L254,54 Z" style="filter:drop-shadow(0 0 8px #fff)"/></g>
+        </svg></div>
+      </article>
+
+      <article class="fx gr rv" style="transition-delay:.0s">
+        <h3>Payouts</h3>
+        <p>Request a payout and follow it from review to approval. Share receipts when it lands.</p>
+        <div class="art"><svg class="il" viewBox="0 0 300 190" preserveAspectRatio="xMidYMax meet">
+          <g class="stk">
+            <path d="M10,60H210M10,90H210M10,120H210M10,150H210M10,180H210"/>
+            <path d="M10,50V190M40,50V190M70,50V190M100,50V190M130,50V190M160,50V190M190,50V190M210,50V190"/>
+          </g>
+          <g class="solid">
+            <rect class="tw" x="46" y="66" width="6" height="6"/><rect class="tw" x="106" y="96" width="6" height="6"/><rect class="tw" x="166" y="126" width="6" height="6"/>
+            <rect class="tw" x="76" y="126" width="6" height="6"/><rect class="tw" x="136" y="66" width="6" height="6"/><rect class="tw" x="16" y="156" width="6" height="6"/>
+            <rect class="tw" x="196" y="96" width="6" height="6"/><rect class="tw" x="226" y="70" width="5" height="5"/><rect class="tw" x="256" y="104" width="5" height="5"/><rect class="tw" x="244" y="140" width="5" height="5"/>
+          </g>
+          <g class="bob"><rect class="tile" x="214" y="26" width="64" height="30" rx="9"/><circle class="solid" cx="228" cy="41" r="3"/><rect class="dim" x="236" y="38" width="32" height="6" rx="3"/></g>
+          <g class="bob" style="animation-delay:-2.4s"><rect class="tile" x="226" y="66" width="56" height="26" rx="9" style="stroke:rgba(255,255,255,.55)"/><path class="ico" d="M238,79 l5,5 l9,-10"/><rect class="dim" x="258" y="76" width="16" height="6" rx="3"/></g>
+        </svg></div>
+      </article>
+
+      <article class="fx gt rv" style="transition-delay:.12s">
+        <h3>Private by design</h3>
+        <p>Lock the app with biometrics or a PIN, set an auto-lock timer. No ads, no third-party analytics.</p>
+        <div class="art"><svg class="il" viewBox="0 0 300 190" preserveAspectRatio="xMidYMax meet">
+          <rect class="tile" x="22" y="40" width="256" height="150" rx="14" style="fill:#08080a;opacity:.85"/>
+          <g class="bob"><rect class="tile" x="48" y="62" width="76" height="76" rx="20" style="stroke:rgba(255,255,255,.55)"/>
+            <rect class="ico" x="74" y="92" width="24" height="18" rx="4" style="fill:#0b0b0c"/><path class="ico" d="M79,92 V86 a7,7 0 0 1 14,0 V92"/><circle class="solid" cx="86" cy="101" r="2"/></g>
+          <g transform="translate(212 100)"><circle class="stk" r="38"/><circle class="stk" r="28"/><circle class="stk" r="18"/>
+            <path class="ico" d="M-18,0 a18,18 0 0 1 36,0M-28,4 a28,28 0 0 1 56,-6M-8,0 a8,8 0 0 1 16,0" style="opacity:.9"/>
+            <g class="scan"><rect x="-34" y="-1" width="68" height="2" rx="1" fill="#fff" style="filter:drop-shadow(0 0 6px #fff)"/></g></g>
+        </svg></div>
+      </article>
+
+      <article class="fx rv" style="transition-delay:.24s">
+        <h3>Your style, your widget</h3>
+        <p>Light, dark or system theme, five accent colours and a home-screen widget with your balance.</p>
+        <div class="art"><svg class="il" viewBox="0 0 300 190" preserveAspectRatio="xMidYMax meet">
+          <g transform="translate(130 128)">
+            <circle class="stk spin" r="84" style="stroke-dasharray:3 7"/><circle class="stk" r="66"/>
+            <circle r="52" fill="none" stroke="rgba(255,255,255,.12)" stroke-width="9"/>
+            <path class="gauge" d="M-52,0 A52,52 0 0 1 52,0" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round" pathLength="240" style="filter:drop-shadow(0 0 8px #fff)"/>
+            <circle class="tile" r="28" style="stroke:rgba(255,255,255,.4)"/><circle class="ico" r="12"/><circle class="solid pop" r="4"/>
+          </g>
+          <g class="bob"><rect class="tile" x="228" y="46" width="52" height="24" rx="8"/><circle class="solid" cx="240" cy="58" r="3"/><rect class="dim" x="248" y="55" width="24" height="6" rx="3"/></g>
+          <g class="bob" style="animation-delay:-2s"><rect class="tile" x="236" y="92" width="44" height="22" rx="8"/><circle cx="247" cy="103" r="3" fill="#bbb"/><rect class="dim" x="254" y="100" width="18" height="6" rx="3"/></g>
+        </svg></div>
+      </article>
+
     </div>
   </section>
 
-  <section class="section" id="about">
-    <div class="container">
-      <div class="section-head"><span class="eyebrow">Made clear</span><h2>Know what you’re installing.</h2><p>We keep the essentials visible so you can review the package before downloading it. No inflated ratings, made-up feature lists or vague security badges.</p></div>
-      <div class="cards">
-        <article class="card"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 20h14" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>Direct APK access</h3><p>Download the APK file included with this website. Your browser handles the file download directly.</p></article>
-        <article class="card"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5" stroke-linecap="round"/></svg></div><h3>Readable app details</h3><p>Check the package name, version, Android API levels, supported CPU architectures and declared permissions.</p></article>
-        <article class="card"><div class="card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3 4.5 6v5.2c0 4.8 3.2 8.2 7.5 9.8 4.3-1.6 7.5-5 7.5-9.8V6L12 3Z"/><path d="m8.5 12 2.2 2.2 4.8-4.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>File fingerprint</h3><p>Use the published SHA-256 checksum to confirm that a file matches this exact package. A checksum is not a malware or safety certification.</p></article>
+  <!-- 4 · DOWNLOAD -->
+  <section class="panel cta rv" id="download">
+    <div class="ctahead">
+      <h2 class="display">Get Viewny<br>on Android.</h2>
+      <p>Free APK download for Android 8.0 and newer. Install it in under a minute and start turning views into visible earnings.</p>
+      <div class="row">
+        <a class="dlbtn" href="downloads/viewny.apk" download="viewny.apk" type="application/vnd.android.package-archive" data-apk><span class="dlclip"><span class="dlfill"></span></span><span class="dltxt">Download APK</span><span class="dlic"><svg class="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg><svg class="i-chk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg><i class="i-spin"></i></span><span class="dltoast"><b></b>Download started</span></a>
+        <a class="btn ghost" href="#top">Back to top ↑</a>
       </div>
+      <div class="meta"><div><b>Android 8.0+</b>Minimum version</div><div><b>v2.0</b>Current release</div><div><b>19.0 MB</b>Download size</div></div>
+    </div>
+
+    <div class="stepgrid" id="install">
+      <article class="sc sc1">
+        <div class="scart"><svg class="il" viewBox="0 0 300 190" aria-hidden="true">
+          <defs><linearGradient id="fgA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3a3e"/><stop offset="1" stop-color="#121214"/></linearGradient></defs>
+          <path d="M66,82 h52 l12,14 h96 a8,8 0 0 1 8,8 v62 a8,8 0 0 1 -8,8 H66 a8,8 0 0 1 -8,-8 v-76 a8,8 0 0 1 8,-8z" fill="#1b1b1e" stroke="rgba(255,255,255,.22)"/>
+          <g class="rise"><rect class="tile" x="100" y="58" width="104" height="32" rx="10" style="stroke:rgba(255,255,255,.5)"/><rect class="dim" x="110" y="66" width="14" height="16" rx="3"/><text x="132" y="78" font-size="11.5" fill="#eee">viewny.apk</text></g>
+          <path d="M58,112 h184 v54 a8,8 0 0 1 -8,8 H66 a8,8 0 0 1 -8,-8z" fill="url(#fgA)" stroke="rgba(255,255,255,.3)"/>
+          <g class="curs"><path class="solid" d="M176,92 l24,11 -11,4 -3,13z" style="filter:drop-shadow(0 0 6px #fff)"/></g>
+        </svg></div>
+        <h3>Download the APK</h3><p>Tap the button and save the file to your phone.</p>
+      </article>
+
+      <article class="sc sc2">
+        <div class="scart"><svg class="il" viewBox="0 0 300 190" aria-hidden="true">
+          <rect class="tile" x="36" y="44" width="228" height="62" rx="14" style="fill:#0d0d0f"/>
+          <text x="54" y="70" font-size="12.5" fill="#f0f0f0">Install unknown apps</text>
+          <text x="54" y="89" font-size="10.5" fill="#85858b">Allow from this browser</text>
+          <rect class="trk" x="206" y="63" width="42" height="24" rx="12"/>
+          <circle class="knob" cx="218" cy="75" r="9" fill="#fff"/>
+          <rect class="dim" x="36" y="118" width="228" height="34" rx="12" style="opacity:.55"/>
+          <rect class="dim" x="52" y="132" width="90" height="6" rx="3"/>
+          <g class="curs2"><path class="solid" d="M232,92 l22,10 -10,4 -3,12z" style="filter:drop-shadow(0 0 6px #fff)"/></g>
+        </svg></div>
+        <h3>Allow installs</h3><p>If asked, enable “Install unknown apps” for your browser or file manager.</p>
+      </article>
+
+      <article class="sc sc3">
+        <div class="scart"><svg class="il" viewBox="0 0 300 190" aria-hidden="true">
+          <defs><linearGradient id="bgA" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2e2e31"/><stop offset="1" stop-color="#131315"/></linearGradient></defs>
+          <g class="toast"><rect x="102" y="16" width="96" height="26" rx="13" fill="#e6e6ec"/><circle cx="118" cy="29" r="6" fill="none" stroke="#111" stroke-width="1.4"/><path d="M115.5,29.2 l2,2 l3.6,-4" fill="none" stroke="#111" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><text x="130" y="33" font-size="11" fill="#111" font-weight="600">Installed</text></g>
+          <g transform="translate(150 84)"><g class="bob"><rect class="tile" x="-30" y="-30" width="60" height="60" rx="17" style="stroke:rgba(255,255,255,.5);fill:#0a0a0b"/><path class="ico" d="M-14,0 Q0,-12 14,0 Q0,12 -14,0Z"/><circle class="solid" r="3.2"/></g></g>
+          <rect x="98" y="132" width="104" height="42" rx="14" fill="url(#bgA)" stroke="rgba(255,255,255,.25)"/>
+          <text x="118" y="158" font-size="14" fill="#fff" font-weight="500">Open</text>
+          <circle cx="178" cy="153" r="9.5" fill="#f2f2f2"/><path d="M178,148 v10 M173,153 h10" stroke="#111" stroke-width="1.8" stroke-linecap="round"/>
+        </svg></div>
+        <h3>Open &amp; sign up</h3><p>Tap the file, install, then create your account and log your first views.</p>
+      </article>
+    </div>
+
+    <div class="stepper" aria-hidden="true">
+      <span class="dot d1">1</span><span class="ln"><i class="l1"></i></span><span class="dot d2">2</span><span class="ln"><i class="l2"></i></span><span class="dot d3">3</span>
     </div>
   </section>
 
-  <section class="section" id="install">
-    <div class="container split">
-      <div class="section-head"><span class="eyebrow">Quick guide</span><h2>Install in a few steps.</h2><p>Android installation steps can vary slightly by device manufacturer and Android version.</p></div>
-      <div>
-        <div class="step-list">
-          <article class="step"><div class="step-num">01</div><div><h3>Download the APK</h3><p>Tap the download button and save <strong>viewny.apk</strong> to your Android device.</p></div></article>
-          <article class="step"><div class="step-num">02</div><div><h3>Review the source and file</h3><p>Check the version and compare the SHA-256 fingerprint when you have a trusted reference copy.</p></div></article>
-          <article class="step"><div class="step-num">03</div><div><h3>Allow installation when prompted</h3><p>Android may ask you to allow your browser or file manager to install apps from that source. Only continue if you trust the APK.</p></div></article>
-          <article class="step"><div class="step-num">04</div><div><h3>Open Viewny</h3><p>When installation finishes, open the app from your device’s app screen.</p></div></article>
-        </div>
-        <div class="note">Android may show additional warnings for apps installed outside Google Play. Review the source, permissions and publisher before proceeding.</div>
-      </div>
+  <!-- 5 · DETAILS -->
+  <section class="panel sec rv" id="details">
+    <div class="sechead"><h2 class="display">Technical details.</h2><p>Read from the APK included with this site. File size and hashes are calculated from that same file.</p></div>
+    <div class="specs2">
+      <div class="sp"><span>Application</span><b>Viewny</b></div>
+      <div class="sp"><span>Package identifier</span><b class="mono">com.helios.investments</b></div>
+      <div class="sp"><span>Version</span><b>2.0</b><em>Version code 2</em></div>
+      <div class="sp"><span>APK file size</span><b>18,962,135 bytes</b><em>18.96 MB · 18.08 MiB</em></div>
+      <div class="sp"><span>Minimum Android</span><b>Android 8.0 (API 26)</b></div>
+      <div class="sp"><span>Target Android API</span><b>API 34</b><em>Android 14</em></div>
+    </div>
+    <div class="sp wide"><span>Included CPU architectures</span><div class="pills"><i>arm64-v8a</i><i>armeabi-v7a</i><i>x86</i><i>x86_64</i></div></div>
+    <div class="sp wide"><span>Permissions declared in the manifest</span><div class="pills"><i>INTERNET</i><i>ACCESS_NETWORK_STATE</i><i>POST_NOTIFICATIONS</i><i>USE_BIOMETRIC</i><i>USE_FINGERPRINT</i><i>WAKE_LOCK</i><i>RECEIVE_BOOT_COMPLETED</i><i>FOREGROUND_SERVICE</i></div><em>Biometric permissions power the app lock; notifications deliver payout updates. The manifest lists permissions; it does not by itself describe every data flow.</em></div>
+  </section>
+
+  <!-- 6 · INTEGRITY -->
+  <section class="panel sec rv" id="integrity">
+    <div class="sechead"><h2 class="display">Check the file fingerprint.</h2><p>These hashes identify the exact APK included with this site. Compare them with a checksum from a separate trusted source.</p></div>
+    <div class="hashbox">
+      <div class="hrow"><div class="hl">SHA-256</div><div class="hv"><code>490a32b31ea10e92577b3a10e5fdef2dea445f57c2150a22c67c0db52d22b756</code><button class="copy-btn" type="button" data-copy="490a32b31ea10e92577b3a10e5fdef2dea445f57c2150a22c67c0db52d22b756">Copy</button></div></div>
+      <div class="hrow"><div class="hl">MD5 · legacy</div><div class="hv"><code>05c00bdcb1fbd9252daa75e6a963516a</code><button class="copy-btn" type="button" data-copy="05c00bdcb1fbd9252daa75e6a963516a">Copy</button></div></div>
+      <p class="hnote">A matching hash confirms the downloaded bytes match this published file. It does not prove the app is harmless, and the signing certificate has not been independently reviewed.</p>
+    </div>
+    <div class="caution"><b>Release-readiness note</b><p>The supplied manifest has <code>android:debuggable=true</code>, which is typical of a development build. Before wide public distribution, publish a production release build with debugging disabled and sign it with your release key.</p></div>
+  </section>
+
+  <!-- 7 · FAQ -->
+  <section class="panel sec rv" id="faq">
+    <div class="sechead"><h2 class="display">Questions.</h2><p>Quick guidance for downloading and installing an Android APK.</p></div>
+    <div class="faqs">
+      <details><summary>What is an APK file?</summary><p>APK is the Android application package format used to distribute and install Android apps outside of an app store.</p></details>
+      <details><summary>Which Android versions are supported?</summary><p>The manifest declares minimum SDK API 26 (Android 8.0). Actual behavior can still depend on your device hardware and Android services.</p></details>
+      <details><summary>Why does Android ask me to allow installation?</summary><p>Android restricts installs from unknown sources by default. You may need to allow your browser or file manager to install apps. Only enable this for a source you trust.</p></details>
+      <details><summary>Does the SHA-256 checksum mean the APK is safe?</summary><p>No. A checksum only confirms two files are byte-for-byte identical. It is not a security scan or proof of publisher identity.</p></details>
+      <details><summary>Why might installation fail?</summary><p>Common causes: an unsupported Android version, low storage, a damaged download, or a conflicting app signature. Check the exact Android message before trying again.</p></details>
+      <details><summary>Why does Viewny ask for notifications and biometrics?</summary><p>Notifications let the app tell you when a payout moves from review to approved. Biometric access powers the optional app lock (fingerprint or screen lock, with a 4-digit PIN as a fallback). You can decline either and still log views.</p></details>
+      <details><summary>How do payouts work?</summary><p>You request a withdrawal from your available balance and enter your account details. Every payout is reviewed before it is approved, and you can follow its status inside the app.</p></details>
+      <details><summary>How do I update Viewny?</summary><p>The app includes a version check. When a newer package is published, download it from this page and install it over the existing app. Android requires an update to use the same application ID and a compatible signing key.</p></details>
     </div>
   </section>
 
-  <section class="section" id="details">
-    <div class="container">
-      <div class="section-head"><span class="eyebrow">Package profile</span><h2>Technical details.</h2><p>The values below were read from the APK supplied for this website. File size and hashes are calculated from that same file.</p></div>
-      <div class="spec-grid">
-        <div class="spec"><span class="spec-label">Application name</span><span class="spec-value">Viewny</span><span class="spec-sub">Website branding</span></div>
-        <div class="spec"><span class="spec-label">Package identifier</span><span class="spec-value">com.aistudio.viewstracker.kpmqvz</span></div>
-        <div class="spec"><span class="spec-label">Version</span><span class="spec-value">1.2.0</span><span class="spec-sub">Version code 3</span></div>
-        <div class="spec"><span class="spec-label">APK file size</span><span class="spec-value">23,411,606 bytes</span><span class="spec-sub">23.41 MB · 22.32 MiB</span></div>
-        <div class="spec"><span class="spec-label">Minimum Android</span><span class="spec-value">Android 7.0 (API 24)</span></div>
-        <div class="spec"><span class="spec-label">Target Android API</span><span class="spec-value">API 36</span></div>
-      </div>
-      <div style="height:14px"></div>
-      <div class="spec" style="margin-bottom:12px"><span class="spec-label">Included CPU architectures</span><div class="code-list"><span class="code-pill">arm64-v8a</span><span class="code-pill">armeabi-v7a</span><span class="code-pill">x86</span><span class="code-pill">x86_64</span></div></div>
-      <div class="spec"><span class="spec-label">Permissions declared in the manifest</span><div class="code-list"><span class="code-pill">INTERNET</span><span class="code-pill">POST_NOTIFICATIONS</span><span class="code-pill">ACCESS_NETWORK_STATE</span><span class="code-pill">READ_GSERVICES</span></div><span class="spec-sub">The manifest lists permissions; it does not by itself describe every data flow or explain how each permission is used.</span></div>
-    </div>
-  </section>
-
-  <section class="section" id="integrity">
-    <div class="container">
-      <div class="section-head"><span class="eyebrow">File transparency</span><h2>Check the file fingerprint.</h2><p>These hashes identify the exact APK currently included in this site bundle. Compare them with a checksum obtained through a separate trusted channel.</p></div>
-      <div class="integrity">
-        <div class="integrity-row"><div><h3>viewny.apk</h3><p>23,411,606 bytes · Version 1.2.0 · version code 3</p></div><span class="code-pill">SHA-256 available</span></div>
-        <div class="hash-row"><div class="hash-label">SHA-256</div><div class="hash-value"><code>91d0aeb34abc05855b1531756938026cde6d12cb456663411d1ceb86dccbbebe</code><button class="copy-btn" type="button" data-copy="91d0aeb34abc05855b1531756938026cde6d12cb456663411d1ceb86dccbbebe">Copy</button></div></div>
-        <div class="hash-row"><div class="hash-label">MD5 · legacy fingerprint</div><div class="hash-value"><code>ee75ac5b661bc38e4b73096081786395</code><button class="copy-btn" type="button" data-copy="ee75ac5b661bc38e4b73096081786395">Copy</button></div></div>
-        <div class="note" style="margin-bottom:0">A matching hash confirms that the downloaded bytes match this published file. It does not prove that the app is harmless, trustworthy or free of vulnerabilities. The APK signing certificate has not been independently reviewed as part of this website build.</div>
-      </div>
-      <div class="caution">
-        <h3><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 9v4m0 4h.01M10.3 3.9 2.6 17.2A2 2 0 0 0 4.3 20h15.4a2 2 0 0 0 1.7-2.8L13.7 3.9a2 2 0 0 0-3.4 0Z" stroke-linecap="round" stroke-linejoin="round"/></svg> Release-readiness note</h3>
-        <p>The supplied APK manifest has <strong>android:debuggable=true</strong> and <strong>android:usesCleartextTraffic=true</strong>. Those settings are commonly associated with development/testing builds. Before distributing this package publicly, the developer should review the network configuration and produce a properly configured production release (normally with debugging disabled and cleartext traffic disabled unless specifically required). This page does not certify the APK as safe.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="faq">
-    <div class="container">
-      <div class="section-head"><span class="eyebrow">Helpful answers</span><h2>Frequently asked questions.</h2><p>Quick guidance for downloading and installing an Android APK.</p></div>
-      <div class="faq-list">
-        <details class="faq"><summary>What is an APK file?</summary><p>APK is the Android application package format used to distribute and install Android apps outside of an app store.</p></details>
-        <details class="faq"><summary>Which Android versions are supported by this package?</summary><p>The supplied manifest declares minimum SDK API 24 (Android 7.0). Actual behavior can still depend on device hardware, Android services and app functionality.</p></details>
-        <details class="faq"><summary>Why does Android ask me to allow installation?</summary><p>Android restricts app installations from unknown sources by default. To install an APK, you may need to allow the specific browser or file manager to install apps. Only enable this for a source you trust.</p></details>
-        <details class="faq"><summary>Does the SHA-256 checksum mean the APK is safe?</summary><p>No. A checksum only helps confirm that two files are byte-for-byte identical. It is not a security scan, code audit or proof of publisher identity.</p></details>
-        <details class="faq"><summary>Why might installation fail?</summary><p>Possible causes include an unsupported Android version, insufficient storage, a damaged download, a conflicting app signature or a package incompatible with your device. Check the exact Android message before trying again.</p></details>
-        <details class="faq"><summary>How do I update Viewny?</summary><p>Download a newer package from the publisher when one is made available. Android generally requires an update to use the same application ID and a compatible signing key as the installed app.</p></details>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="container">
-      <div class="cta-panel"><div><h2>Ready to get Viewny?</h2><p>Review the app information above, then download the APK included with this website.</p></div><a class="btn btn-primary" href="downloads/viewny.apk" download="viewny.apk">Download APK <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 20h14" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
-    </div>
-  </section>
-</main>
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-main">
-      <div class="footer-brand"><a class="brand" href="index.html"><img src="assets/viewny-logo.png" alt=""><span class="brand-copy"><span class="brand-name">Viewny</span><span class="brand-caption">Android application</span></span></a><p>App information and Android package details. Review the package and its permissions before installing.</p></div>
-      <nav class="footer-links" aria-label="Footer navigation"><a href="#about">About</a><a href="#details">App details</a><a href="#integrity">File integrity</a><a href="#faq">FAQ</a><a href="privacy.html">Privacy policy</a><a href="terms.html">Terms &amp; conditions</a></nav>
-    </div>
-    <div class="footer-bottom"><span>© 2026 Viewny. All rights reserved.</span><span>Package details reflect the APK supplied with this website.</span></div>
-  </div>
+</div>
+<div class="note-device" id="deviceNote" hidden><b>On a computer or iPhone?</b> Viewny is an Android app. Open this page on your Android phone, or download the file here and transfer it.<button type="button" id="copyLink">Copy page link</button></div>
+<div class="dockbar" id="dock"><div><b>Viewny v2.0</b><span>Android 8.0+ · 19 MB</span></div><a class="dlmini" href="downloads/viewny.apk" download="viewny.apk" type="application/vnd.android.package-archive">Download APK</a></div>
+<footer class="foot">
+  <nav aria-label="Footer navigation"><a href="#about">About</a><a href="#details">App details</a><a href="#integrity">File integrity</a><a href="#faq">FAQ</a><a href="privacy.html">Privacy policy</a><a href="terms.html">Terms &amp; conditions</a></nav>
+  <div>© <span id="yr"></span> Viewny. All rights reserved. · Package details reflect the APK included with this site.</div>
 </footer>
+
+<script defer src="site.js"></script>
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* ---- cursor spotlight ---- */
+  addEventListener('pointermove',function(e){
+    document.documentElement.style.setProperty('--mx',e.clientX+'px');
+    document.documentElement.style.setProperty('--my',e.clientY+'px');
+  },{passive:true});
+
+  /* ---- scroll reveal ---- */
+  var io = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ var t=e.target; t.classList.add('in'); io.unobserve(t); if(t.style.transitionDelay){ setTimeout(function(){t.style.transitionDelay='';},1500);} } });
+  },{threshold:.12});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el)});
+
+  /* ---- counting number ---- */
+  var cEl = document.getElementById('count');
+  function runCount(){
+    var target = 248, t0 = null;
+    if(reduce){ cEl.textContent = target; return; }
+    function step(ts){
+      if(!t0) t0 = ts;
+      var p = Math.min((ts-t0)/2600,1), eased = 1-Math.pow(1-p,4);
+      cEl.textContent = Math.round(target*eased);
+      if(p<1) requestAnimationFrame(step); else loopTick();
+    }
+    requestAnimationFrame(step);
+  }
+  /* after finishing, keep ticking up slowly so it feels "live" */
+  function loopTick(){
+    var v = 248;
+    if(reduce) return;
+    setInterval(function(){ v += Math.random()<.5?1:0; cEl.textContent = v; },2200);
+  }
+  runCount();
+
+  /* ---- heading text scramble ---- */
+  var glyphs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789#%&';
+  document.querySelectorAll('.scramble').forEach(function(h){
+    var spans = h.querySelectorAll('span'), finals = [].map.call(spans,function(s){return s.textContent});
+    if(reduce) return;
+    var done = false;
+    new IntersectionObserver(function(es,ob){
+      if(!es[0].isIntersecting||done) return; done = true; ob.disconnect();
+      var f = 0, total = 38;
+      var timer = setInterval(function(){
+        f++;
+        spans.forEach(function(s,i){
+          var fin = finals[i], out = '';
+          for(var k=0;k<fin.length;k++){
+            var reveal = (f/total)*(fin.length+8) - k - i*4;
+            out += fin[k]===' ' ? ' ' : (reveal>1 ? fin[k] : (reveal>0 ? glyphs[Math.floor(Math.random()*glyphs.length)] : '\u00a0'));
+          }
+          s.textContent = out;
+        });
+        if(f>=total){ clearInterval(timer); spans.forEach(function(s,i){s.textContent=finals[i]}); }
+      },45);
+    },{threshold:.4}).observe(h);
+  });
+
+  /* ---- 3D tilt on cards ---- */
+  if(!reduce && matchMedia('(hover:hover)').matches){
+    document.querySelectorAll('.tilt').forEach(function(c){
+      c.addEventListener('pointermove',function(e){
+        var r = c.getBoundingClientRect(), x = (e.clientX-r.left)/r.width-.5, y = (e.clientY-r.top)/r.height-.5;
+        c.style.transform = 'perspective(700px) rotateX('+(-y*7)+'deg) rotateY('+(x*9)+'deg) translateZ(0)';
+      });
+      c.addEventListener('pointerleave',function(){ c.style.transform=''; });
+    });
+  }
+
+  /* ---- magnetic buttons ---- */
+  if(!reduce){
+    document.querySelectorAll('.btn,.dlbtn').forEach(function(b){
+      b.addEventListener('pointermove',function(e){
+        var r=b.getBoundingClientRect(); b.style.translate=((e.clientX-r.left-r.width/2)*.12)+'px '+((e.clientY-r.top-r.height/2)*.2)+'px';
+      });
+      b.addEventListener('pointerleave',function(){ b.style.translate=''; });
+    });
+  }
+
+  /* ---- hero orb: the Viewny eye, with views streaming in ---- */
+  function heroOrb(canvas){
+    var ctx = canvas.getContext('2d'); if(!ctx) return;
+    var W=0,H=0,dpr=1,cx=0,cy=0,R=100, visible=true;
+    var px=0,py=0,tx=0,ty=0, pulses=[], parts=[], N=150;
+    function rnd(a,b){return a+Math.random()*(b-a)}
+    function spawn(p,first){
+      p.a=rnd(0,Math.PI*2); p.r=R*(first?rnd(.3,3.2):rnd(2.4,3.4)); p.v=rnd(.35,1.0); p.s=rnd(.6,1.9); p.w=rnd(.6,1.4);
+      p.px=null; p.py=null; return p;
+    }
+    function resize(){
+      dpr=Math.min(devicePixelRatio||1,2); W=canvas.clientWidth||400; H=canvas.clientHeight||400;
+      canvas.width=W*dpr; canvas.height=H*dpr; ctx.setTransform(dpr,0,0,dpr,0,0);
+      cx=W*.52; cy=H*.44; R=Math.min(W*.5,H*.62)*.5;
+      parts=[]; for(var i=0;i<N;i++) parts.push(spawn({},true));
+    }
+    addEventListener('resize',resize); resize();
+    addEventListener('pointermove',function(e){
+      var r=canvas.getBoundingClientRect();
+      tx=Math.max(-1,Math.min(1,(e.clientX-(r.left+cx))/(innerWidth*.35)));
+      ty=Math.max(-1,Math.min(1,(e.clientY-(r.top+cy))/(innerHeight*.35)));
+    },{passive:true});
+    new IntersectionObserver(function(es){visible=es[0].isIntersecting}).observe(canvas);
+
+    function eyePath(w,h){
+      ctx.beginPath(); ctx.moveTo(-w,0); ctx.quadraticCurveTo(0,-h*1.95,w,0); ctx.quadraticCurveTo(0,h*1.95,-w,0); ctx.closePath();
+    }
+    var last=performance.now(), time=0, nextPulse=0;
+    function frame(now){
+      requestAnimationFrame(frame);
+      if(!visible && !reduce) return;
+      var dt=Math.min((now-last)/1000,.05); last=now; if(reduce) dt=0; time+=dt;
+      px+=(tx-px)*.06; py+=(ty-py)*.06;
+      ctx.clearRect(0,0,W,H);
+
+      /* soft glow */
+      var g=ctx.createRadialGradient(cx,cy,0,cx,cy,R*3);
+      g.addColorStop(0,'rgba(255,255,255,.20)'); g.addColorStop(.35,'rgba(255,255,255,.06)'); g.addColorStop(1,'rgba(255,255,255,0)');
+      ctx.fillStyle=g; ctx.fillRect(0,0,W,H);
+
+      /* rotating dashed rings + orbiting nodes */
+      var rings=[[1.55,.10,2,8],[2.05,-.07,1,3],[2.6,.045,1,14]];
+      rings.forEach(function(rg,i){
+        var rr=R*rg[0], rot=time*rg[1];
+        ctx.save(); ctx.translate(cx,cy); ctx.rotate(rot);
+        ctx.strokeStyle='rgba(255,255,255,'+(.2-i*.045)+')'; ctx.lineWidth=1;
+        ctx.setLineDash([rg[2]+2,rg[3]]); ctx.beginPath(); ctx.arc(0,0,rr,0,Math.PI*2); ctx.stroke(); ctx.setLineDash([]);
+        for(var k=0;k<2+i;k++){
+          var a=k*(Math.PI*2/(2+i));
+          ctx.fillStyle='rgba(255,255,255,'+(.85-i*.2)+')';
+          ctx.beginPath(); ctx.arc(Math.cos(a)*rr,Math.sin(a)*rr,2.4-i*.4,0,Math.PI*2); ctx.fill();
+          ctx.strokeStyle='rgba(255,255,255,.35)'; ctx.beginPath(); ctx.arc(Math.cos(a)*rr,Math.sin(a)*rr,6-i,0,Math.PI*2); ctx.stroke();
+        }
+        ctx.restore();
+      });
+
+      /* streaming particles (views flowing into the eye) */
+      for(var i=0;i<parts.length;i++){
+        var p=parts[i];
+        p.r-=dt*R*p.v*(.35+R*1.4/Math.max(p.r,R*.5)*.5); p.a+=dt*.55*(R*1.6/Math.max(p.r,R*.6))*.35*p.w;
+        var x=cx+Math.cos(p.a)*p.r, y=cy+Math.sin(p.a)*p.r*.78;
+        var al=Math.min(1,(p.r-R*.5)/(R*.8)); if(al<0) al=0;
+        if(p.px!==null && al>0){
+          ctx.strokeStyle='rgba(255,255,255,'+(al*.5)+')'; ctx.lineWidth=p.s*.7;
+          ctx.beginPath(); ctx.moveTo(p.px,p.py); ctx.lineTo(x,y); ctx.stroke();
+        }
+        ctx.fillStyle='rgba(255,255,255,'+(al*.9)+')'; ctx.fillRect(x-p.s/2,y-p.s/2,p.s,p.s);
+        p.px=x; p.py=y;
+        if(p.r<R*.5){ spawn(p,false); if(time>nextPulse){ pulses.push({r:R*.9,a:.5}); nextPulse=time+.9; } }
+      }
+
+      /* pulses leaving the eye */
+      for(var j=pulses.length-1;j>=0;j--){
+        var pu=pulses[j]; pu.r+=dt*R*1.1; pu.a-=dt*.28;
+        if(pu.a<=0){pulses.splice(j,1);continue}
+        ctx.strokeStyle='rgba(255,255,255,'+pu.a+')'; ctx.lineWidth=1.2;
+        ctx.beginPath(); ctx.ellipse(cx,cy,pu.r,pu.r*.78,0,0,Math.PI*2); ctx.stroke();
+      }
+
+      /* the eye */
+      var ph=time%6.5, b=1; if(ph<.28) b=1-Math.sin(ph/.28*Math.PI)*.93;
+      var ew=R*1.12, eh=R*.52*b;
+      ctx.save(); ctx.translate(cx,cy+Math.sin(time*1.1)*4);
+      var eg=ctx.createRadialGradient(0,0,0,0,0,ew); eg.addColorStop(0,'#17171a'); eg.addColorStop(1,'#050506');
+      eyePath(ew,eh); ctx.fillStyle=eg; ctx.fill();
+      ctx.save(); eyePath(ew,eh); ctx.clip();
+      var ix=px*R*.26, iy=py*R*.12, ir=R*.4;
+      var ig=ctx.createRadialGradient(ix-ir*.25,iy-ir*.3,ir*.1,ix,iy,ir);
+      ig.addColorStop(0,'#ffffff'); ig.addColorStop(.55,'#9a9aa2'); ig.addColorStop(1,'#2a2a2e');
+      ctx.fillStyle=ig; ctx.beginPath(); ctx.arc(ix,iy,ir,0,Math.PI*2); ctx.fill();
+      ctx.strokeStyle='rgba(0,0,0,.35)'; ctx.lineWidth=1;
+      for(var k=0;k<28;k++){ var a=k/28*Math.PI*2; ctx.beginPath(); ctx.moveTo(ix+Math.cos(a)*ir*.42,iy+Math.sin(a)*ir*.42); ctx.lineTo(ix+Math.cos(a)*ir*.95,iy+Math.sin(a)*ir*.95); ctx.stroke(); }
+      var pr=ir*(.36+Math.sin(time*1.7)*.03);
+      ctx.fillStyle='#050506'; ctx.beginPath(); ctx.arc(ix,iy,pr,0,Math.PI*2); ctx.fill();
+      ctx.fillStyle='rgba(255,255,255,.95)'; ctx.beginPath(); ctx.arc(ix-pr*.5,iy-pr*.55,pr*.22,0,Math.PI*2); ctx.fill();
+      /* scan sweep */
+      var sx=((time*.35)%1.6-.3)*ew*2-ew; var sg=ctx.createLinearGradient(sx-30,0,sx+30,0);
+      sg.addColorStop(0,'rgba(255,255,255,0)'); sg.addColorStop(.5,'rgba(255,255,255,.22)'); sg.addColorStop(1,'rgba(255,255,255,0)');
+      ctx.fillStyle=sg; ctx.fillRect(sx-30,-eh*2,60,eh*4);
+      ctx.restore();
+      eyePath(ew,eh); ctx.strokeStyle='rgba(255,255,255,.85)'; ctx.lineWidth=1.6; ctx.shadowColor='#fff'; ctx.shadowBlur=14; ctx.stroke();
+      ctx.restore();
+    }
+    requestAnimationFrame(frame);
+  }
+  var orb = document.getElementById('orb');
+  if(orb) heroOrb(orb);
+
+
+  /* ---- download button: progress, check, "started" pill ---- */
+  document.querySelectorAll('.dlbtn').forEach(function(b){
+    var txt=b.querySelector('.dltxt'), orig=txt.textContent, busy=false;
+    b.addEventListener('click',function(){          // the real download still runs
+      if(busy) return; busy=true;
+      b.classList.remove('done'); b.classList.add('going'); txt.textContent='Starting…';
+      setTimeout(function(){ b.classList.remove('going'); b.classList.add('done'); txt.textContent='Downloaded'; },1500);
+      setTimeout(function(){ b.classList.remove('done'); txt.textContent=orig; busy=false; },4600);
+    });
+  });
+  
+  /* ---- mobile menu ---- */
+  var bg=document.querySelector('.burger'), sh=document.getElementById('sheet');
+  function closeMenu(){bg.setAttribute('aria-expanded','false');sh.classList.remove('open');}
+  bg.addEventListener('click',function(){var o=bg.getAttribute('aria-expanded')!=='true';bg.setAttribute('aria-expanded',String(o));sh.classList.toggle('open',o);});
+  sh.addEventListener('click',function(e){if(e.target.tagName==='A')closeMenu();});
+  addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu();});
+  addEventListener('resize',function(){if(innerWidth>980)closeMenu();});
+
+  /* ---- sticky download bar: show after hero, hide near the download section ---- */
+  var dock=document.getElementById('dock'), hero=document.getElementById('top'), dl=document.getElementById('download'), vh1=false, vh2=false;
+  function upd(){dock.classList.toggle('show',!vh1&&!vh2);}
+  new IntersectionObserver(function(es){vh1=es[0].isIntersecting;upd();}).observe(hero);
+  new IntersectionObserver(function(es){vh2=es[0].isIntersecting;upd();}).observe(dl);
+
+  /* ---- device hint ---- */
+  if(!/Android/i.test(navigator.userAgent)){
+    var dn=document.getElementById('deviceNote'); dn.hidden=false;
+    document.getElementById('copyLink').addEventListener('click',function(){
+      var b=this, t=b.textContent;
+      (navigator.clipboard?navigator.clipboard.writeText(location.href.split('#')[0]):Promise.reject()).then(function(){b.textContent='Copied';},function(){b.textContent='Copy failed';});
+      setTimeout(function(){b.textContent=t;},1600);
+    });
+  }
+
+  /* ---- optional: point every download button at one APK path ---- */
+  // The APK lives in this repo at downloads/viewny.apk (see README). Keep that path or change this one line.
+  var APK_URL = 'downloads/viewny.apk';
+  document.querySelectorAll('[data-apk]').forEach(function(a){ a.setAttribute('href',APK_URL); });
+})();
+</script>
 </body>
 </html>
